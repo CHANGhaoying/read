@@ -1,0 +1,54 @@
+/**index.wxss**/
+/* .userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+
+.userinfo-nickname {
+  color: #aaa;
+}
+
+.usermotto {
+  margin-top: 200px;
+} */
+/* .saying view{
+  margin:70rpx 0 0 50rpx;
+  position: relative;
+} */
+.saying{
+  border: 1rpx solid red;
+}
+.saying view span{
+  position: absolute;
+  width: 0;
+  height: 0;
+  left: -50rpx;
+  bottom: 0;
+  border-width: 8rpx 28rpx;
+  border-color: transparent #E5E5E5 transparent transparent;
+  border-style: solid; 
+}
+.saying view view{
+  font-size: 30rpx;
+  color:#222222;
+  background: #E5E5E5;
+  display: inline-block;
+  padding: 30rpx;
+  max-width:520rpx;
+  border-radius: 10rpx;
+  line-height: 50rpx;
+  /* font-family: "myff"; */
+}
+.navbar{
+  height: 200rpx;
+  border-bottom: 1px solid #ddd;
+  position: relative;
+}
