@@ -1,3 +1,9 @@
 <!--pages/home/home.wxml-->
 <text>pages/home/home.wxml</text>
-<view>主页</view>
+
+<view>
+  <view ></view>
+</view>
+<view>
+  <view></view>
+</view>

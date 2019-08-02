@@ -11,3 +11,4 @@
 page{
   /* font-family: "myff" */
 }
+@import 'static/ali/iconfont.wxss'

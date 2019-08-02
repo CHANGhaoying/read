@@ -52,3 +52,53 @@
   border-bottom: 1px solid #ddd;
   position: relative;
 }
+.audio{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40rpx;
+}
+.audio .iconfont{
+  width: 44rpx;
+  height: 44rpx;
+  border-radius: 50%;
+  border: 1rpx solid #222222;
+  text-align: center;
+  line-height: 44rpx;
+  font-size: 30rpx;
+  color:#FE6868;
+}
+
+.audio .slider{
+  width: 66%;
+  height: 4rpx;
+  background: #bbb;
+}
+.audio .slider view{
+  height: 100%;
+  background: #FE6868;
+  position: relative;
+}
+.audio .slider p{
+  width: 22rpx;
+  height: 22rpx;
+  border-radius: 50%;
+  border: 1rpx solid #bbb;
+  position: absolute;
+  right: 0;
+  top: -8rpx;
+  background: #fff;
+  box-sizing: border-box;
+}
+.audio .slider span{
+  display: block;
+  width: 6rpx;
+  height: 6rpx;
+  border-radius: 50%;
+  background: #FE6868;
+  margin: 8rpx auto 0;
+}
+.audio text{
+  font-size: 22rpx;
+  color: #999;
+}

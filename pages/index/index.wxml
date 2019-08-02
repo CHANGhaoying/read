@@ -1,4 +1,3 @@
-
 <!--index.wxml-->
 <!-- <view class="container">
   <view class="userinfo">
@@ -49,11 +48,18 @@ animation='{{mm}}' bindtap='go'>哈哈</view> -->
     <span>R</span><text>eal-time news</text>
   </view>
   <view class="img">
+  <!-- ../../static/img/neza.jpg -->
     <image src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1564725627154&di=8b472d029179da7a3feb1c23773148b0&imgtype=0&src=http%3A%2F%2Fimg.ph.126.net%2FH478it0zxFeij-CtRwYZbg%3D%3D%2F2350879005487893503.jpg"></image>
   </view>
+
+  <view class="audio">
+    <view class="iconfont {{playflag ? 'icon-bofang' : 'icon-pause'}}" bindtap='play'></view>
+    <!-- <view class="iconfont icon-pause" bindtap='play' data-code='2' hidden='{{playflag != 1}}'></view> -->
+    <text>00:05</text>
+    <view class="slider" bindtouchmove="move" bindtap="tap" bindtouchend="end">
+      <view style="width:{{sliderW}}"><p catchtouchstart="start"><span></span></p></view>
+    </view>
+    <text>05:05</text>
+  </view>
 </view>
-<view><l-button type="default">default</l-button></view>
-<!-- <l-button type="default">default</l-button> -->
-<view><l-button type="error">error</l-button></view>
-<view><l-button type="success">success</l-button></view>
-<view><l-button type="warning">warning</l-button></view>
+

@@ -7,17 +7,62 @@ Page({
     // userInfo: {},
     // hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    adt:{},
-    mm:{},
-    code:0,
+    // adt:{},
+    // mm:{},
+    // code:0,
     navbarH:0,
+    playflag:true,
+    ratio:0.5,//rpx与px的转换比例
+    sliderW: '22rpx',//进度条动态长度（初始值22rpx）
+    sliderW_record:0,//每次操作结束后的进度条长度记录
+    startX: NaN,//进度条圆点的初始按压位置
+    sliderMaxWidth:0,//进度条总长
   },
-
-  onLoad: function () {
+  play(e){
+    // console.log(e)
+    this.setData({
+      playflag: !this.data.playflag,
+    })
+  },
+  tap(e){
+    console.log(e)
+  },
+  //拖动开始
+  start(e){
+    this.setData({
+      startX: e.touches[0].clientX,
+    })
+    console.log(this.data.startX)
+  },
+  //拖动中
+  move(e){
+    let { startX, sliderW_record, sliderMaxWidth,ratio } = this.data;
+    if (!startX) return;//如果用户没按压进度条圆点，拖动无效
+    let x = e.touches[0].clientX, ln = 0;
     
+    if(sliderW_record){//已经在播放时的拖动
+      ln = x - startX + sliderW_record;
+    } else {// 00:00 时拖动(加初始值22rpx),
+      ln = x - startX + 22 * ratio;
+    }
+    if (ln < 0) ln = 22 * ratio;
+    if (ln >= sliderMaxWidth) ln = sliderMaxWidth;
+    this.setData({
+      sliderW: ln + 'px',
+    })
+  },
+  //拖动结束，手指松开
+  end(){
+    let len = this.data.sliderW.split('px')[0];
+    this.setData({
+      sliderW_record: Number(len),
+    })
+    console.log('完了' + len)
+  },
+  onLoad: function () {
     wx.getUserInfo({
       success: res => {
-        // console.log(res)
+        console.log(res)
         app.globalData.userInfo = res.userInfo
         this.setData({
           userInfo: res.userInfo,
@@ -25,13 +70,13 @@ Page({
         })                 
       }
     });
-    wx.loadFontFace({
-      family: 'myff',
-      source: 'url("https://sungd.github.io/Pacifico.ttf")',
-      success: res => {
-        // console.log(res)
-      }
-    })
+    // wx.loadFontFace({
+    //   family: 'myff',
+    //   source: 'url("https://sungd.github.io/Pacifico.ttf")',
+    //   success: res => {
+    //     // console.log(res)
+    //   }
+    // })
     // if (app.globalData.userInfo) {
     //   this.setData({
     //     userInfo: app.globalData.userInfo,
@@ -60,7 +105,6 @@ Page({
     //   })
     // }
   },
-  
   onReady(){
     let n = 0;
     let tm = setInterval(()=>{
@@ -84,31 +128,47 @@ Page({
     },1600);
   },
   onShow(){
-    
     let menuBtn = wx.getMenuButtonBoundingClientRect();
-    console.log(menuBtn)
+    // console.log(menuBtn,menuBtn.bottom -menuBtn.height/2)
     this.setData({
       navbarH: menuBtn.bottom + 8,
-    })
-  },
-  aa(){
-    let am = wx.createAnimation({
-      duration: 300,
-      timingFunction: 'ease-out',
     });
-    am.opacity(1).scale(1, 1).translate(40, 0).step();
-    this.setData({
-      mm: am,
+
+    let query = wx.createSelectorQuery();
+    query.select('.slider').boundingClientRect(rect=>{
+      this.setData({
+        sliderMaxWidth : rect.width,
+      })
+    }).exec();
+    //获取设备信息
+    wx.getSystemInfo({
+      success:res=>{
+        this.setData({
+          //比例
+          ratio: res.screenWidth / 750, 
+        })
+      }
     })
+
   },
-  go(){
-    wx.navigateTo({
-      url: '../home/home',
-      success: function(res) {},
-      fail: function(res) {},
-      complete: function(res) {},
-    })
-  },
+  // aa(){
+  //   let am = wx.createAnimation({
+  //     duration: 300,
+  //     timingFunction: 'ease-out',
+  //   });
+  //   am.opacity(1).scale(1, 1).translate(40, 0).step();
+  //   this.setData({
+  //     mm: am,
+  //   })
+  // },
+  // go(){
+  //   wx.navigateTo({
+  //     url: '../home/home',
+  //     success: function(res) {},
+  //     fail: function(res) {},
+  //     complete: function(res) {},
+  //   })
+  // },
   //事件处理函数
   // bindViewTap: function() {
   //   wx.navigateTo({

@@ -1,1 +1,9 @@
 /* pages/home/home.wxss */
+view view{
+  width: 20rpx;
+  height:20rpx;
+  border:1px solid red;
+}
+ view{
+  border:1px solid blue;
+}
