@@ -1,14 +1,11 @@
-// pages/home/home.js
+// pages/study/study.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    code:NaN,
-    boxflag:'',
-    arr1:'123456',
-    arr2:'45678'
+
   },
 
   /**
@@ -67,27 +64,3 @@ Page({
 
   }
 })
-// "tabBar": {
-//   "color": "#f0f",
-//     "selectedColor": "#0f0",
-//       "borderStyle": "black",
-//         "backgroundColor": "#ddd",
-//           "list": [
-//             {
-//               "selectedIconPath": "static/img/book2.png",
-//               "iconPath": "static/img/book1.png",
-//               "pagePath": "pages/index/index",
-//               "text": "首页"
-
-//             },
-//             {
-//               "selectedIconPath": "static/img/home2.png",
-//               "iconPath": "static/img/home1.png",
-//               "pagePath": "pages/home/home",
-//               "text": "会员"
-
-//             }
-
-//           ]
-
-// }

@@ -1,31 +1,11 @@
-/**index.wxss**/
-/* .userinfo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+page{
+  width: 100%;
+  height:100%;
 }
-
-.userinfo-avatar {
-  width: 128rpx;
-  height: 128rpx;
-  margin: 20rpx;
-  border-radius: 50%;
-}
-
-.userinfo-nickname {
-  color: #aaa;
-}
-
-.usermotto {
-  margin-top: 200px;
-} */
-/* .saying view{
-  margin:70rpx 0 0 50rpx;
-  position: relative;
-} */
-.saying{
+/* 短语录 */
+/* .saying{
   border: 1rpx solid red;
-}
+} */
 .saying view span{
   position: absolute;
   width: 0;
@@ -45,18 +25,60 @@
   max-width:520rpx;
   border-radius: 10rpx;
   line-height: 50rpx;
-  /* font-family: "myff"; */
+}
+
+/* 首页 */
+.index{
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
 }
 .navbar{
   height: 200rpx;
   border-bottom: 1px solid #ddd;
   position: relative;
 }
+.body{
+  padding: 40rpx 40rpx 10rpx;
+  flex: 1;
+  overflow: auto;
+}
+
+/* .body里的各部分↓ */
+.date{
+  color: #A8A8A8;
+  font-size: 24rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+}
+.title{
+  font-size:50rpx;
+}
+.type{
+  /* border: 1px solid red; */
+  font-size: 22rpx;
+  color: #535353;
+  padding: 15rpx 0 40rpx;
+}
+.type span{
+  display: inline-block;
+  background: #FE6868;
+  color: #5F4B4B;
+  width: 24rpx;
+  text-align: center;
+}
+
+.img image{
+  width: 100%;
+  height: 318rpx;
+}
 .audio{
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 40rpx;
+  padding: 30rpx 10rpx 40rpx;
 }
 .audio .iconfont{
   width: 44rpx;
@@ -101,4 +123,145 @@
 .audio text{
   font-size: 22rpx;
   color: #999;
+}
+
+.article view{
+  padding-bottom: 26rpx;
+  line-height: 40rpx;
+}
+.article .english{
+  font-size: 30rpx;
+  color: #474747;
+}
+.english span{
+  display:inline-block;
+  position: relative;
+}
+.english span icon{
+  position: absolute;
+  width: 100%;
+  height: 15rpx;
+  background: #a6f6c5;
+  left:0;
+  bottom:0;
+  z-index: -1;
+}
+.article .chinese{
+  font-size: 26rpx;
+  color: #6d6d6d;
+}
+/* 底部导航 */
+.footer{
+  height: 200rpx;
+  border-top: 1rpx solid #000;
+  display: flex;
+  justify-content: space-around;
+}
+.footer view{
+  /* border: 1rpx solid red; */
+  /* flex:  */
+  text-align:center;
+  font-size:26rpx;
+  color: #a8a8a8;
+}
+.footer view image{
+  width: 76rpx;
+  height: 76rpx;
+  border-radius: 50%;
+  border: 1rpx solid;
+  display: block;
+  margin: 35rpx 0 15rpx;
+}
+
+
+/* 遮罩 */
+.cover{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.3);
+  top:0;
+  left: 0;
+  z-index: 11;
+}
+.cover .msg{
+  color: #303030;
+  font-size: 36rpx;
+  text-align: center;
+  padding-top:100rpx; 
+}
+.sash-window{
+  height: 432rpx;
+  width: 100%;
+  background: #fff;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  padding-bottom: 36rpx;
+  box-sizing: border-box;
+}
+.top-btn{
+  height: 30rpx;
+  width: 150rpx;
+  margin: -30rpx auto 0;
+  background: #fff;
+  border-radius: 6rpx;
+  transform:perspective(15rpx) rotateX(1deg);
+  padding-top: 8rpx;
+}
+.top-btn span{
+  display: block;
+  width: 60rpx;
+  height: 3rpx;
+  background: #ccc;
+  margin: 8rpx auto;
+}
+.sash-window-body{
+  height: 100%;
+  overflow: auto;
+  padding: 20rpx;
+  box-sizing: border-box;
+}
+/* 推拉窗里单词展示 */
+
+.word{
+  font-size: 50rpx;
+  color: #303030;
+  padding-left: 22rpx;
+} 
+.soundmark{
+  padding: 0 22rpx;
+}
+.soundmark text{
+  font-size: 26rpx;
+  color: #999;
+}
+.meaning{
+  margin: 10rpx 15rpx 0;
+  padding-left: 15rpx;
+}
+.meaning p{
+  display: block;
+  font-size: 28rpx;
+  color:#707070;
+  margin: 10rpx 0;
+}
+
+/* 关闭图标 */
+.sash-window .icon-guanbi{
+  color: #999;
+  font-size: 70rpx;
+  position: absolute;
+  top: 25rpx;
+  right: 50rpx;
+}
+.soundmark .icon-shengyin{
+  display: inline-block;
+  color: #ffd656;
+  font-size: 40rpx;
+  vertical-align: middle;
+  width: 80rpx;
+  text-align: center;
+  height: 80rpx;
+  line-height: 80rpx;
 }

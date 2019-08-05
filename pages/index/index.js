@@ -3,9 +3,6 @@
 const app = getApp()
 Page({
   data: {
-    // motto: 'Hello World',
-    // userInfo: {},
-    // hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     // adt:{},
     // mm:{},
@@ -17,6 +14,8 @@ Page({
     sliderW_record:0,//每次操作结束后的进度条长度记录
     startX: NaN,//进度条圆点的初始按压位置
     sliderMaxWidth:0,//进度条总长
+    coverFlag: true,//遮罩显示隐藏
+    translate: true,//译文隐藏
   },
   play(e){
     // console.log(e)
@@ -59,6 +58,32 @@ Page({
     })
     console.log('完了' + len)
   },
+  findWord(){//点击单词
+    this.setData({
+      coverFlag: false,
+    })
+  },
+  close(){//关闭遮罩
+    this.setData({
+      coverFlag: true,
+    })
+  },
+  translate(){//点击翻译
+    this.setData({
+      translate: !this.data.translate,
+    })
+  },
+  toStudy(){//去练习
+    wx.navigateTo({
+      url: '../study/study',
+      success: function(res) {},
+      fail: function(res) {},
+      complete: function(res) {},
+    })
+  },
+  none() {//禁止遮罩冒泡
+    return;
+  },
   onLoad: function () {
     wx.getUserInfo({
       success: res => {
@@ -70,40 +95,7 @@ Page({
         })                 
       }
     });
-    // wx.loadFontFace({
-    //   family: 'myff',
-    //   source: 'url("https://sungd.github.io/Pacifico.ttf")',
-    //   success: res => {
-    //     // console.log(res)
-    //   }
-    // })
-    // if (app.globalData.userInfo) {
-    //   this.setData({
-    //     userInfo: app.globalData.userInfo,
-    //     hasUserInfo: true
-    //   })
-    // } else if (this.data.canIUse){
-    //   // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-    //   // 所以此处加入 callback 以防止这种情况
-    //   app.userInfoReadyCallback = res => {
-    //     this.setData({
-    //       userInfo: res.userInfo,
-    //       hasUserInfo: true
-    //     })
-    //   }
-    // } else {
-    //   // 在没有 open-type=getUserInfo 版本的兼容处理
-    //   wx.getUserInfo({
-    //     success: res => {
-    //       console.log(res)
-    //       app.globalData.userInfo = res.userInfo
-    //       this.setData({
-    //         userInfo: res.userInfo,
-    //         hasUserInfo: true
-    //       })
-    //     }
-    //   })
-    // }
+    
   },
   onReady(){
     let n = 0;
@@ -184,3 +176,40 @@ Page({
   //   })
   // }
 })
+
+
+// wx.loadFontFace({
+    //   family: 'myff',
+    //   source: 'url("https://sungd.github.io/Pacifico.ttf")',
+    //   success: res => {
+    //     // console.log(res)
+    //   }
+    // })
+
+    // if (app.globalData.userInfo) {
+    //   this.setData({
+    //     userInfo: app.globalData.userInfo,
+    //     hasUserInfo: true
+    //   })
+    // } else if (this.data.canIUse){
+    //   // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
+    //   // 所以此处加入 callback 以防止这种情况
+    //   app.userInfoReadyCallback = res => {
+    //     this.setData({
+    //       userInfo: res.userInfo,
+    //       hasUserInfo: true
+    //     })
+    //   }
+    // } else {
+    //   // 在没有 open-type=getUserInfo 版本的兼容处理
+    //   wx.getUserInfo({
+    //     success: res => {
+    //       console.log(res)
+    //       app.globalData.userInfo = res.userInfo
+    //       this.setData({
+    //         userInfo: res.userInfo,
+    //         hasUserInfo: true
+    //       })
+    //     }
+    //   })
+    // }

@@ -1,9 +1,8 @@
 /* pages/home/home.wxss */
-view view{
-  width: 20rpx;
-  height:20rpx;
-  border:1px solid red;
+view{
+  height: 200rpx;
 }
- view{
-  border:1px solid blue;
+button{
+  /* background: linear-gradient(45deg, red 0%,blue 100%); */
+  background: linear-gradient(42deg, red, 30% ,blue);
 }

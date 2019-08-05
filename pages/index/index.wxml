@@ -15,7 +15,7 @@
 <!-- <view 
 style="width:100rpx;height:100rpx;border:1px solid red;border-radius:50%;line-height:100rpx;text-align:center;transform:scale(0.6,0.6) translate(0,100px);opacity:0;" 
 animation='{{mm}}' bindtap='go'>哈哈</view> -->
-<!-- <view class='saying'>
+<view class='saying' hidden>
   <view animation='{{adt}}' wx:if='{{code>0}}' style='opacity:0;margin:50rpx 0 0 60rpx;position: relative;'>
     <span></span>
     <view bindtap="aa">Hi，<open-data type="userNickName"></open-data></view>
@@ -32,34 +32,85 @@ animation='{{mm}}' bindtap='go'>哈哈</view> -->
     <span></span>
     <view>加油，看好你哟！</view>
   </view>
-</view> -->
-
-<view class="navbar" style="height:{{navbarH}}px;">
-  <view style="border:2px solid;border-radius:50%;width:32px;height:32px;position:absolute;left:10px;bottom:5px;"></view>
 </view>
-<view class='body'>
-  <view class="date">
-      <text>March,22nd,2019</text>
-  </view>
-  <view class="title">
-    <text>The harder you work,The luckier you will be.Shu</text>
-  </view>
-  <view class="type">
-    <span>R</span><text>eal-time news</text>
-  </view>
-  <view class="img">
-  <!-- ../../static/img/neza.jpg -->
-    <image src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1564725627154&di=8b472d029179da7a3feb1c23773148b0&imgtype=0&src=http%3A%2F%2Fimg.ph.126.net%2FH478it0zxFeij-CtRwYZbg%3D%3D%2F2350879005487893503.jpg"></image>
-  </view>
 
-  <view class="audio">
-    <view class="iconfont {{playflag ? 'icon-bofang' : 'icon-pause'}}" bindtap='play'></view>
-    <!-- <view class="iconfont icon-pause" bindtap='play' data-code='2' hidden='{{playflag != 1}}'></view> -->
-    <text>00:05</text>
-    <view class="slider" bindtouchmove="move" bindtap="tap" bindtouchend="end">
-      <view style="width:{{sliderW}}"><p catchtouchstart="start"><span></span></p></view>
+<view class="index">
+  <view class="navbar" style="height:{{navbarH}}px;">
+    <view style="border:2px solid;border-radius:50%;width:32px;height:32px;position:absolute;left:10px;bottom:5px;"></view>
+  </view>
+  <view class='body'>
+    <view class="date">
+        <text>March，22nd，2019</text>
     </view>
-    <text>05:05</text>
+    <view class="title">
+      <text>The harder you work,The luckier you will be.Shu</text>
+    </view>
+    <view class="type">
+      <span>R</span><text>eal-time news</text>
+    </view>
+    <view class="img">
+      <image src="../../static/img/neza.jpg"></image>
+    </view>
+    <view class="audio">
+      <view class="iconfont {{playflag ? 'icon-bofang' : 'icon-pause'}}" bindtap='play'></view>
+      
+      <text>00:05</text>
+      <view class="slider" bindtouchmove="move" bindtap="tap" bindtouchend="end">
+        <view style="width:{{sliderW}}"><p catchtouchstart="start"><span></span></p></view>
+      </view>
+      <text>05:05</text>
+    </view>
+    <view class='article'>
+      <view class="english">Scientists <span bindtap='findWord'>revealed<icon></icon></span> an asteroid dubbed by some as a "city killer" came closer to the Earth than the moon this week.</view>
+      <view class="chinese" hidden='{{translate}}'>科学家透露本周有一颗被科学家戏称为“城市杀手”的小行星距离地球比月球还近。</view>
+      <view class="english">Scientists revealed an asteroid dubbed by some as a "city killer" came closer to the Earth than the moon this week.</view>
+      <view class="chinese" hidden='{{translate}}'>科学家透露本周有一颗被科学家戏称为“城市杀手”的小行星距离地球比月球还近。</view>
+    </view>
+  </view>
+  <view class="footer">
+    <view>
+      <image></image>
+      <text>已收藏</text>
+    </view>
+    <view bindtap='translate'>
+      <image></image>
+      <text>{{translate ? '翻译' : '原文'}}</text>
+    </view>
+    <view bindtap="toStudy">
+      <image></image>
+      <text>下一项</text>
+    </view>
   </view>
 </view>
 
+<view class='cover' catchtap='none' hidden="{{coverFlag}}">
+  <view class='sash-window'>
+    <view class='top-btn'>
+      <span></span><span></span>
+    </view> 
+    <icon class='iconfont icon-guanbi' catchtap='close'></icon>
+    <!-- <view hidden class='msg'>暂未收录该单词</view>  -->
+    <view class='sash-window-body'>
+      <view>
+        <text class='word'>english_word</text>
+        <view class='soundmark'>
+          <text>[phonetic]</text><!--音标-->
+          <i class='iconfont icon-shengyin' catchtap='play' data-src='{{wordData.us_audio}}'></i>
+        </view>
+        <view class='meaning'>
+          <p>vt. 推测；猜测，猜中；假定，认为</p>
+          <p>vt. 推测；猜测，猜中；假定，认为</p>
+          <p>vt. 推测；猜测，猜中；假定，认为</p>
+        </view>
+      </view>
+      
+      <!-- <view class='example'>  
+        <h1>例句：</h1>
+        <view wx:for='wordData.sentence' wx:key='{{index}}'>
+          <p>item.englishtitle</p>
+          <p>item.chinesetitle</p>
+        </view>
+      </view> -->
+    </view>
+  </view>
+</view>
