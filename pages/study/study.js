@@ -1,10 +1,15 @@
 // pages/study/study.js
+let { bottom } = getApp().globalData.menuBtn;//胶囊按钮的底部
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    topH: bottom,//胶囊按钮的底部
+    wdt: [{ e: 'harder', p: '[harder]', c: 'vt. 推测；猜测' }, { e: 'harder', p: '[harder]', c: 'vt. 推测；猜测' }, { e: 'harder', p: '[harder]', c: 'vt. 推测；猜测' }, { e: 'harder', p: '[harder]', c: 'vt. 推测；猜测' },
+      { e: 'harder', p: '[harder]', c: 'vt. 推测；猜测' }, { e: 'harder', p: '[harder]', c: 'vt. 推测；猜测' }, { e: 'harder', p: '[harder]', c: 'vt. 推测；猜测' }, { e: 'harder', p: '[harder]', c: 'vt. 推测；猜测' }
+    ],
 
   },
 
@@ -12,7 +17,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    
   },
 
   /**

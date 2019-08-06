@@ -1,1 +1,207 @@
 /* pages/study/study.wxss */
+page{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+.top{
+  /* border: 1px solid red; */
+}
+.first-cover .bg-img{
+  text-align: center;
+  /* padding-top: 120rpx; */
+}
+.bg-img image{
+  width: 580rpx;
+  height: 647rpx;
+}
+.first-cover .txt{
+  padding: 48rpx 80rpx 130rpx;
+}
+.txt view{
+  font-size: 50rpx;
+  color: #191919;
+  padding-bottom: 20rpx;
+}
+.txt text{
+  font-size: 30rpx;
+	line-height: 52rpx;
+	color: #474747;
+}
+.first-cover button{
+  width: 490rpx;
+	height: 88rpx;
+	background: linear-gradient(90deg,#ff6a66 0%,#ff9b50 100%);
+	font-size: 36rpx;
+	color: #ffffff;
+	border-radius: 44rpx;
+}
+/* 单词 词组 长难句 个数目录条（定位隐藏） */
+.catalog-wrap{
+  position: absolute;
+  width: 100%;
+  box-sizing: border-box;
+  display: none;    
+}
+.catalog{
+  width: 669rpx;
+	height: 150rpx;
+	background: #f9fafc;
+  margin:0 auto;
+  display: flex;
+  justify-content:space-between;
+  align-items: center;
+  padding: 0 30rpx;
+  box-sizing: border-box;
+  
+}
+.catalog>view{
+  color: #191919;
+  text-align: center;
+  line-height: 36rpx;
+}
+.catalog span{
+  font-size: 48rpx;
+}
+.catalog text{
+  font-size: 24rpx;
+}
+/* 单词 词组 */
+.words-box{
+  flex: 1;
+  overflow: auto;
+}
+/* 单词词组列表 */
+.list{
+  padding: 0 30rpx;
+}
+.list-item{
+  border-bottom: 2rpx solid #e6e6e7;
+  padding: 35rpx 0 40rpx 20rpx;
+}
+.list-item>view:first-child{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.list-item span{
+  color: #191919;
+  font-size: 50rpx;
+}
+.list-item span text{
+  margin-left: 30rpx;
+  font-size: 26rpx;
+	color: #797979;
+}
+.list-item icon{
+  color:#f3c638;
+  width: 80rpx;
+  text-align: center;
+  font-size: 34rpx;
+}
+.list-item .chinese{
+  margin-top: 15rpx;
+  font-size: 26rpx;
+  color: #626262;
+}
+.play-btn-box button{
+  width: 600rpx;
+	height: 88rpx;
+  line-height: 88rpx;
+	background-image: linear-gradient(90deg,#ff6a66 0%,#ff9b50 100%);
+	border-radius: 44rpx;
+  font-size: 48rpx;
+  color: #fff;
+}
+.play-btn-box{
+  padding: 84rpx 0;
+}
+.title{
+  font-size: 48rpx;
+	color: #191919;
+  padding: 10rpx 50rpx 0;
+}
+/* 连连看 */
+.play-box{
+  flex: 1;
+  overflow: auto;
+  padding-top: 50rpx;
+}
+.play-box>view{
+  padding:0 50rpx;
+}
+.clock{
+  margin: 40rpx 0 75rpx;
+}
+.clock icon{
+  font-size: 50rpx;
+  display: inline-block;
+  vertical-align: top;
+}
+.clock text{
+  color: #474747;
+  font-size: 38rpx;
+  margin-left: 30rpx;
+}
+.clock span{
+  float:right;
+  margin-top:6rpx;
+  background: #303030;
+  width: 46rpx;
+	height: 43rpx;
+  color: #ffffff;
+  font-size: 32rpx;
+  text-align: center;
+}
+.btn-group{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.btn-group view{
+  width: 190rpx;
+	height: 63rpx;
+	background-color: #eeebf6;
+  color: #191919;
+  font-size: 26rpx;
+  text-align: center;
+  line-height: 63rpx;
+  margin-bottom: 32rpx;
+}
+/* 长难句 */
+.cnj-box>view{
+  padding: 0 50rpx;
+}
+.cnj{
+	font-size: 30rpx;
+	line-height: 40rpx;
+	color: #474747;
+  margin-top: 30rpx;
+}
+.cnj-box .topic{
+  /* border: 1px solid red; */
+  padding:60rpx 50rpx 49rpx;
+  display: flex;
+  align-items: center;
+}
+.topic icon{
+  width: 37rpx;
+	height: 37rpx;
+	background-color: #ff7860;
+}
+.topic text{
+  font-size: 33rpx;
+	color: #626262;
+  margin-left: 26rpx;
+}
+.opt{
+  width: 661rpx;
+	height: 75rpx;
+	background-color: #f5f2fb;
+	border-radius: 38rpx 38rpx 0rpx 38rpx;
+	border: solid 1rpx #ad90e6;
+  font-size: 34rpx;
+	line-height: 75rpx;
+	color: #474747;
+}

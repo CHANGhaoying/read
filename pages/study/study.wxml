@@ -1,2 +1,100 @@
 <!--pages/study/study.wxml-->
-<text>pages/study/study.wxml</text>
+<view class="top" style="height:{{topH}}px">
+  <!-- 顶部留白占位 -->
+</view>
+<!-- 封面"开启练习" -->
+<view class="first-cover" hidden>
+  <view class='bg-img'>
+    <image src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1565063767593&di=5f635d36c5fb42faed81483f1f5547a9&imgtype=jpg&src=http%3A%2F%2Fpicd23.huitu.com%2Fpic%2F20161028%2F20161028191733674800_0.jpg"></image>
+  </view>
+  <view class='txt'>
+    <view>讲解学习</view>
+    <text>听懂老师的分析了么~~ \n 想提高英语分数，做题少不了 \n 认真学习哦，看自己能掌握多少吧~~</text>
+  </view>
+  <view><button>开启练习</button></view>
+</view>
+ <!-- 单词词组长难句个数目录 -->
+<view class="catalog-wrap" style="top:{{topH+5}}px">
+  <view class='catalog'>
+    <view>
+      <view>
+        <span>8</span>
+        <text>/个</text>
+      </view>
+      <text>生僻单词</text>
+    </view>
+    <view>
+      <view>
+        <span>6</span>
+        <text>/组</text>
+      </view>
+      <text>生僻词组</text>
+    </view>
+    <view>
+      <view>
+        <span>1</span>
+        <text>/句</text>
+      </view>
+      <text>长难句解析</text>
+    </view>
+  </view>
+</view>
+<!-- 单词 词组列表 -->
+<view class="words-box" hidden>
+  <view class="title">今日词组</view>
+  <view class='list'>
+    <view class="list-item" wx:for='{{wdt}}' wx:key='{{index}}'>
+      <view>
+        <span>{{item.e}}<text>{{item.p}}</text></span>
+        <icon class="iconfont icon-shengyin"></icon>  
+      </view>
+      <view class="chinese">{{item.c}}</view>
+    </view>
+  </view>
+</view>
+<view class="play-btn-box" hidden><button>play</button></view>
+<!-- 连连看单词 词组 -->
+<view class="play-box" hidden>
+  <view class="title">单词连连看</view>
+  <view class="clock">
+    <icon class="icon-naozhong iconfont"></icon>
+    <text>02</text>
+    <span>X</span>
+  </view>
+  <view class='btn-group'>
+    <view>come in</view>
+    <view>来自</view>
+    <view>come in</view>
+    <view>来自</view>
+    <view>come in</view>
+    <view>来自</view>
+    <view>come in</view>
+    <view>来自</view>
+    <view>come in</view>
+    <view>来自</view>
+    <view>come in</view>
+    <view>来自</view>
+    <view>come in</view>
+    <view>来自</view>
+    <view>come in</view>
+    <view>来自</view>
+    <view>come in</view>
+    <view>来自</view>
+    <view>come in</view>
+    <view>来自</view>
+    <view>come in</view>
+    <view>来自</view>
+    <view>come in</view>
+    <view>来自</view>
+  </view>
+</view>
+<view class="cnj-box">
+  <view class="title">今日长难句</view>
+  <view class='cnj'> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. </view>
+  <view class='topic'>
+    <icon></icon>
+    <text>请选出句子中的主干</text>
+  </view>
+  <view class='opt'>Aenean euismod bibendum laoreet</view>
+  <view class='opt'>Proin sodales pulvinar tempor</view>
+</view>

@@ -1,13 +1,14 @@
 //index.js
 //获取应用实例
-const app = getApp()
+// const app = getApp()
+let { bottom } = getApp().globalData.menuBtn;//胶囊按钮的底部
 Page({
   data: {
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     // adt:{},
     // mm:{},
     // code:0,
-    navbarH:0,
+    navbarH: bottom + 8,
     playflag:true,
     ratio:0.5,//rpx与px的转换比例
     sliderW: '22rpx',//进度条动态长度（初始值22rpx）
@@ -120,11 +121,11 @@ Page({
     },1600);
   },
   onShow(){
-    let menuBtn = wx.getMenuButtonBoundingClientRect();
-    // console.log(menuBtn,menuBtn.bottom -menuBtn.height/2)
-    this.setData({
-      navbarH: menuBtn.bottom + 8,
-    });
+    // let menuBtn = wx.getMenuButtonBoundingClientRect();
+    // // console.log(menuBtn,menuBtn.bottom -menuBtn.height/2)
+    // this.setData({
+    //   navbarH: menuBtn.bottom + 8,
+    // });
 
     let query = wx.createSelectorQuery();
     query.select('.slider').boundingClientRect(rect=>{

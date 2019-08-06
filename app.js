@@ -31,10 +31,13 @@ App({
         }
       }
     });
+  
+    // this.globalData.menuBtn = wx.getMenuButtonBoundingClientRect();
   },
   
   globalData: {
-    userInfo: null
+    userInfo: null,
+    menuBtn: wx.getMenuButtonBoundingClientRect(),
   },
   
 })
