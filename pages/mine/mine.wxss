@@ -1,0 +1,50 @@
+/* pages/mine/mine.wxss */
+.body{
+  padding: 60rpx;
+}
+.self-info{
+  display: flex;
+}
+.avatar{
+  width: 106rpx;
+	height: 106rpx;
+  border-radius:50%;
+  overflow: hidden;
+  margin-right: 40rpx;
+}
+.name{
+  font-size: 42rpx;
+  color: #191919;
+  padding-top:2rpx; 
+}
+.name+view{
+  line-height: 56rpx;
+}
+.self-info text{
+  font-size: 28rpx;
+  color: #a8a8a8;
+}
+.mylist{
+  padding-top:50rpx;
+}
+.mylist-item{
+  height: 140rpx;
+  line-height: 140rpx;
+  padding-right: 25rpx;
+  border-bottom: 1rpx solid #e8e8e8;
+}
+.mylist-item image{
+  width: 70rpx;
+  height: 80rpx;
+  vertical-align: middle;
+}
+.mylist-item text{
+  font-size: 30rpx;
+  color: #313131;
+  margin-left: 40rpx;
+}
+.mylist-item span{
+  float: right;
+  font-size: 54rpx;
+  color: #c5c5c5;
+}

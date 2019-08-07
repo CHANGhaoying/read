@@ -103,14 +103,6 @@ animation='{{mm}}' bindtap='go'>哈哈</view> -->
           <p>vt. 推测；猜测，猜中；假定，认为</p>
         </view>
       </view>
-      
-      <!-- <view class='example'>  
-        <h1>例句：</h1>
-        <view wx:for='wordData.sentence' wx:key='{{index}}'>
-          <p>item.englishtitle</p>
-          <p>item.chinesetitle</p>
-        </view>
-      </view> -->
     </view>
   </view>
 </view>

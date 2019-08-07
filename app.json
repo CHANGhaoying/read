@@ -1,9 +1,13 @@
 {
   "pages": [
-    "pages/study/study",
+    "pages/mine/record/record",
+    "pages/mine/mine",
+    "pages/ranking/ranking",
     "pages/index/index",
+    "pages/study/study",
     "pages/home/home",
-    "pages/logs/logs"
+    "pages/logs/logs",
+    "pages/mine/article/article"
   ],
   "window": {
     "backgroundTextStyle": "light",

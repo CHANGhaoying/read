@@ -1,13 +1,5 @@
 /* pages/study/study.wxss */
-page{
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-}
-.top{
-  /* border: 1px solid red; */
-}
+
 .first-cover .bg-img{
   text-align: center;
   /* padding-top: 120rpx; */
@@ -16,15 +8,15 @@ page{
   width: 580rpx;
   height: 647rpx;
 }
-.first-cover .txt{
+.first-cover .talk{
   padding: 48rpx 80rpx 130rpx;
 }
-.txt view{
+.talk view{
   font-size: 50rpx;
   color: #191919;
   padding-bottom: 20rpx;
 }
-.txt text{
+.talk text{
   font-size: 30rpx;
 	line-height: 52rpx;
 	color: #474747;
@@ -170,17 +162,18 @@ page{
   margin-bottom: 32rpx;
 }
 /* 长难句 */
-.cnj-box>view{
-  padding: 0 50rpx;
+.cnj-box{
+  flex: 1;
+  overflow: auto;
 }
 .cnj{
 	font-size: 30rpx;
 	line-height: 40rpx;
 	color: #474747;
   margin-top: 30rpx;
+  padding: 0 50rpx;
 }
 .cnj-box .topic{
-  /* border: 1px solid red; */
   padding:60rpx 50rpx 49rpx;
   display: flex;
   align-items: center;
@@ -201,7 +194,139 @@ page{
 	background-color: #f5f2fb;
 	border-radius: 38rpx 38rpx 0rpx 38rpx;
 	border: solid 1rpx #ad90e6;
-  font-size: 34rpx;
+  font-size: 30rpx;
 	line-height: 75rpx;
 	color: #474747;
+  margin-bottom: 20rpx;
+  white-space: nowrap;/*不允许换行*/
+  overflow: hidden;/*超出隐藏*/
+  text-overflow: ellipsis;/*文本超出三点代替*/
+  position: relative;
+}
+.opt span{
+  position: absolute;
+  background: #28b65f;
+  right: -16rpx;
+  bottom: -16rpx;
+  color: #fff;
+  height:40rpx;
+  width: 40rpx;
+  border-radius: 50%;
+  font-size: 26rpx;
+  text-align: left;
+  line-height: 32rpx;
+  font-weight: bold;
+  padding:5rpx;
+}
+.yes{
+  background-color: #d7ffe6;
+	border: solid 1rpx #28b65f;
+}
+.no{
+  background-color: #fde2df;
+	border: solid 1rpx #f86f60;
+}
+.no .iconfont{
+  background: #f86f60;
+  font-size:24rpx;
+  padding-left: 7rpx;
+  right: -19rpx;
+}
+.look{
+  font-size: 32rpx;
+	color: #ff7860;
+  text-align: center;
+  margin-top:40rpx;
+}
+.look text{
+  display: inline-block;
+  transform:rotate(90deg);
+  font-size: 40rpx;
+  margin-left:20rpx;
+  padding-left: 10rpx;
+}
+
+/* 解析 */
+.analysis{
+  padding: 36rpx 50rpx;
+}
+.analysis .content{
+  color: #626262;
+  margin: 20rpx 0 0;
+  line-height: 50rpx;
+}
+
+.analysis .sentence .content text{
+  display: inline-block;
+  height: 64rpx;
+  line-height: 64rpx;
+  margin-right: 10rpx;
+}
+
+.analysis h3{
+  margin-left: -20rpx;
+  color: #191919;
+  font-size: 34rpx;
+  display: inline-block;
+}
+
+.analysis .sentence-part{
+  margin-top: 30rpx;
+}
+.analysis .sentence-part .content text{
+  margin-right: 5rpx;
+}
+/* 成分分析 */
+.analysis .element{
+  background: #f0f0f0;
+  margin: 30rpx 0 40rpx;
+  padding: 20rpx;
+  box-sizing: border-box;
+}
+.analysis .element h4{
+  font-size: 30rpx;
+  display: block;
+  margin-bottom: 5rpx;
+}
+.analysis .ele1{
+  color: #fc8383;
+  font-size: 28rpx;
+  margin-bottom: 20rpx;
+}
+.analysis .ele1 text{
+  margin-right: 10rpx;
+}
+.analysis .ele2{
+  color: #8e8e8e;
+  font-size: 26rpx;
+}
+.analysis .ele2 view{
+  display: flex;
+  flex-wrap: wrap;
+}
+.analysis .ele2 text{
+  width: 50%;
+  margin-top: 5rpx;
+}
+.analysis .txt .content{
+  font-size: 30rpx;
+}
+/* 各成分样式 */
+.analysis .subject,.object{
+  border-bottom: 1rpx solid;
+}
+.analysis .predicate{
+  border-bottom: 8rpx double;
+}
+.analysis .appositive{
+  border-bottom: 1rpx dashed;
+}
+.analysis .ranking-btn {
+	width: 600rpx;
+	height: 88rpx;
+	background-image: linear-gradient(90deg,#ff6a66 0%,#ff9b50 100%);
+	border-radius: 44rpx;
+  font-size: 36rpx;
+	color: #ffffff;
+  margin-top: 36rpx;
 }

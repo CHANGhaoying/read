@@ -1,0 +1,10 @@
+<!--pages/mine/son/record/record.wxml-->
+<navbar text='学习记录'/>
+<view class="nav">
+  <view class="active"><text>单词</text><icon></icon></view>
+  <view><text>词组</text><icon></icon></view>
+  <view><text>长难句</text><icon></icon></view>
+</view>
+<view class="list">
+  <view class="date">2019-02-22</view>
+</view>

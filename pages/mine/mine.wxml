@@ -1,0 +1,20 @@
+<!--pages/mine/mine.wxml-->
+<navbar text='个人中心'/>
+<view class='body'>
+  <view class='self-info'>
+    <view class='avatar'>
+      <open-data type='userAvatarUrl'></open-data>
+    </view>
+    <view>
+      <view class="name"><open-data type='userNickName'></open-data></view>
+      <view><text>坚持打卡第4天</text></view>
+    </view>
+  </view>
+  <view class="mylist">
+    <view class="mylist-item" bindtap='goto' wx:for='{{list}}' wx:key='{{index}}' data-index='{{index}}'>
+      <image src='../../static/img/{{item.url}}'></image>
+      <text>{{item.txt}}</text>
+      <span class='iconfont icon-iconfonti'></span>
+    </view>
+  </view>
+</view>

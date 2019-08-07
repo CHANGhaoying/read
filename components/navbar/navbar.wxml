@@ -1,0 +1,7 @@
+<!--components/navbar/navbar.wxml-->
+<view class="top" style="height:{{topH}}px">
+  <view>
+    <span class='icon-fanhui iconfont'></span>
+    <text>{{text}}</text>
+  </view>
+</view>
