@@ -1,6 +1,6 @@
 <!--pages/ranking/ranking.wxml-->
 <navbar />
-<view class='ranking'>
+<view class='ranking flex-1'>
   <view class="title">学霸排行榜</view>
   <view class='list'>
     <view class='list-item' wx:key='{{index}}'> 

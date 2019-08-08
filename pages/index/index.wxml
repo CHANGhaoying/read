@@ -1,20 +1,26 @@
-<!--index.wxml-->
-<!-- <view class="container">
-  <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
-  </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text> 
-  </view>
-</view> -->
+
 
 <!-- <view 
 style="width:100rpx;height:100rpx;border:1px solid red;border-radius:50%;line-height:100rpx;text-align:center;transform:scale(0.6,0.6) translate(0,100px);opacity:0;" 
 animation='{{mm}}' bindtap='go'>哈哈</view> -->
+<view class='first-cover'>
+  <navbar text='研线MBA英语阅读' flag='true'/>
+  <view class="banner"><image 
+  src='https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1565262081451&di=3cdeab781dd2f294dfd94d6eb5786fbc&imgtype=0&src=http%3A%2F%2Fsup.user.img38.51sole.com%2Fimages3%2F20150717%2F1471069_20157171029990.jpg'
+  ></image></view>
+  <view class='card'>
+    <view>The harder you work The luckier you will be. Shu</view>
+    <view class='hello'>
+      <open-data type="userNickName"></open-data>
+      <text>，{{helloStr}}好\n你已经坚持打卡2天啦，加油！</text>
+    </view>
+    <view class='hello' hidden>
+      <text>你好，</text>
+      <open-data type="userNickName"></open-data>
+    </view>
+    <button>开启今日阅读</button>
+  </view>
+</view>
 <view class='saying' hidden>
   <view animation='{{adt}}' wx:if='{{code>0}}' style='opacity:0;margin:50rpx 0 0 60rpx;position: relative;'>
     <span></span>
@@ -34,11 +40,11 @@ animation='{{mm}}' bindtap='go'>哈哈</view> -->
   </view>
 </view>
 
-<view class="index">
+<view class="index" hidden>
   <view class="navbar" style="height:{{navbarH}}px;">
-    <view style="border:2px solid;border-radius:50%;width:32px;height:32px;position:absolute;left:10px;bottom:5px;"></view>
+    <view style="border:2px solid;border-radius:50%;width:32px;height:32px;position:absolute;left:10px;bottom:5px;" bindtap='toMine'></view>
   </view>
-  <view class='body'>
+  <view class='body flex-1'>
     <view class="date">
         <text>March，22nd，2019</text>
     </view>

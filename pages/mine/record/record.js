@@ -5,14 +5,38 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    navItems:['单词','词组','长难句'],
+    navIndex: 0,
+    navHide: false,
+    text:'学习记录',
+    wdt: [{ e: 'harder', p: '[harder]', c: 'vt. 推测；猜测' }, { e: 'harder', p: '[harder]', c: 'vt. 推测；猜测' }, { e: 'harder', p: '[harder]', c: 'vt. 推测；猜测' }, { e: 'harder', p: '[harder]', c: 'vt. 推测；猜测' },
+    { e: 'harder', p: '[harder]', c: 'vt. 推测；猜测' }, { e: 'harder', p: '[harder]', c: 'vt. 推测；猜测' }, { e: 'harder', p: '[harder]', c: 'vt. 推测；猜测' }, { e: 'harder', p: '[harder]', c: 'vt. 推测；猜测' }
+    ],
   },
-
+  tapnav(e){//切换 单词 词组 长难句
+    let { index } = e.currentTarget.dataset
+    this.setData({
+      navIndex: index,
+    })
+  },
+  toShow(){//展开长难句详情
+    if(this.data.navHide){
+      wx.reLaunch({ url: '/pages/index/index', })//关闭所有页面，打开index页面   
+    }else{
+      wx.navigateTo({ url: '../../study/study', })
+    }
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    if(options.flag){
+      this.setData({
+        navIndex: 2,
+        navHide: true,
+        text: options.flag == 1 ? '我收藏的文章' : '往期文章',
+      })
+    }
   },
 
   /**

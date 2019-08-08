@@ -1,10 +1,81 @@
 <!--pages/mine/son/record/record.wxml-->
-<navbar text='学习记录'/>
-<view class="nav">
-  <view class="active"><text>单词</text><icon></icon></view>
-  <view><text>词组</text><icon></icon></view>
-  <view><text>长难句</text><icon></icon></view>
+<navbar text='{{text}}'/>
+<view class="nav" hidden="{{navHide}}">
+  <view class="{{index == navIndex && 'active'}}" wx:for='{{navItems}}'
+    bindtap='tapnav' data-index='{{index}}' wx:key='{{index}}'>
+    <text>{{item}}</text>
+    <icon></icon>
+  </view>
 </view>
-<view class="list">
-  <view class="date">2019-02-22</view>
+<view class="list flex-1">
+  <view hidden = '{{navIndex == 2}}'>
+    <block>
+    <view class="date">2019-02-22</view>
+    <view class="list-item" wx:for='{{wdt}}' wx:key='{{index}}'>
+      <view>
+        <span>{{item.e}}<text>{{item.p}}</text></span>
+        <icon class="iconfont icon-shengyin"></icon>  
+      </view>
+      <view class="chinese">{{item.c}}</view>
+    </view>
+    </block>
+  </view>
+  <view hidden="{{navIndex != 2}}">
+    <view class='cnj-item'>
+      <view>7月24日</view>
+      <view>
+        <text>Lorem ipsum dolor sit amet, consectetur elit.aaas</text>
+        <span class='iconfont icon-you' bindtap='toShow'></span>
+      </view>
+    </view>
+    <view class='cnj-item'>
+      <view>7月24日</view>
+      <view>
+        <text>Lorem ipsum dolor sit amet, consectetur elit. euismod bibendum ipsum dolor sit amet consectetur elit. euismod bibendum</text>
+        <span class='iconfont icon-you'></span>
+      </view>
+    </view>
+    <view class='cnj-item'>
+      <view>7月24日</view>
+      <view>
+        <text>Lorem ipsum dolor sit amet, consectetur elit. euismod bibendum</text>
+        <span class='iconfont icon-you'></span>
+      </view>
+    </view>
+    <view class='cnj-item'>
+      <view>7月24日</view>
+      <view>
+        <text>Lorem ipsum dolor sit amet, consectetur elit. euismod bibendum</text>
+        <span class='iconfont icon-you'></span>
+      </view>
+    </view>
+    <view class='cnj-item'>
+      <view>7月24日</view>
+      <view>
+        <text>Lorem ipsum dolor sit amet, consectetur elit. euismod bibendum</text>
+        <span class='iconfont icon-you'></span>
+      </view>
+    </view>
+    <view class='cnj-item'>
+      <view>7月24日</view>
+      <view>
+        <text>Lorem ipsum dolor sit amet, consectetur elit. euismod bibendum</text>
+        <span class='iconfont icon-you'></span>
+      </view>
+    </view>
+    <view class='cnj-item'>
+      <view>7月24日</view>
+      <view>
+        <text>Lorem ipsum dolor sit amet, consectetur elit. euismod bibendum</text>
+        <span class='iconfont icon-you'></span>
+      </view>
+    </view>
+    <view class='cnj-item'>
+      <view>7月24日</view>
+      <view>
+        <text>Lorem ipsum dolor sit amet, consectetur elit. euismod bibendum</text>
+        <span class='iconfont icon-you'></span>
+      </view>
+    </view>
+  </view>
 </view>

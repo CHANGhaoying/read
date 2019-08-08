@@ -1,0 +1,9 @@
+<!--pages/mine/h5/h5.wxml-->
+<block wx:if='{{flag}}'>
+  <web-view src='{{url}}'></web-view>
+</block>
+<block wx:else>
+  <navbar text='关于我们'/>
+  <view class='flex-1' style="color: red">关于我们</view>
+</block>
+

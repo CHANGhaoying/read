@@ -16,16 +16,19 @@ Page({
     let { index } = e.currentTarget.dataset, url = '';
     switch (index) {
       case 0:
-        url = 'record/record';
+        url = 'record/record';//学习记录
         break;
       case 1:
-        console.log("1");
+        url = 'record/record?flag=1';//收藏的文章
         break;
       case 2:
-        console.log("2");
+        url = 'record/record?flag=2';//往期文章
+        break;
+      case 3:
+        url = 'h5/h5?flag=0';//关于我们
         break;
       default:
-        console.log("NaN");
+        url = 'h5/h5?flag=1';//研线课堂
     };
     wx.navigateTo({
       url: url,
@@ -42,7 +45,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    // console.log(getApp().globalData.menuBtn)
+    
   },
 
   /**

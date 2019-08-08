@@ -4,17 +4,18 @@
   justify-content: space-around;
   font-size: 30rpx;
   color: #9b9b9b;
+  border-bottom: #e6e6e7 1rpx solid;
 }
 .nav view{
   position: relative;
-  padding: 25rpx 0;
+  padding: 20rpx 0;
 }
 .nav view icon{
    height: 6rpx;
    width: 46rpx;
    background: #4bdd83;
    position: absolute;
-   bottom: 0;
+   bottom: -4rpx;
    left: 50%;
    margin-left: -23rpx;
    display: none;
@@ -25,10 +26,73 @@
 .nav .active icon{
   display: block;
 }
+.list{
+  padding-bottom: 50rpx;
+}
 .list .date{
 	height: 46rpx;
 	background-color: #edf3f4;
   font-size: 20rpx;
   color: #969696;
   line-height: 46rpx;
+  padding: 0 50rpx;
+}
+.list-item{
+  border-bottom: 2rpx solid #e6e6e7;
+  padding: 30rpx 50rpx 40rpx;
+}
+.list-item>view:first-child{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.list-item span{
+  color: #191919;
+  font-size: 50rpx;
+}
+.list-item span text{
+  margin-left: 30rpx;
+  font-size: 26rpx;
+	color: #797979;
+}
+.list-item icon{
+  color:#f3c638;
+  width: 80rpx;
+  text-align: center;
+  font-size: 34rpx;
+}
+.list-item .chinese{
+  margin-top: 15rpx;
+  font-size: 26rpx;
+  color: #626262;
+}
+/* 长难句列表项 */
+.cnj-item{
+  padding: 40rpx 40rpx 40rpx 50rpx;
+  border-bottom: 2rpx solid #e6e6e7;
+}
+.cnj-item>view:first-child{ /*日期*/
+  font-size: 28rpx;
+  color: #ff6d65;
+  margin-bottom: 10rpx;
+}
+.cnj-item text{
+  font-size: 26rpx;
+	color: #474747;
+}
+.cnj-item>view:last-child{
+  position: relative;
+  padding-right:40rpx;
+  overflow: hidden;
+  text-overflow:ellipsis;
+  display:-webkit-box; 
+  -webkit-line-clamp: 2; 
+  -webkit-box-orient: vertical;
+}
+.cnj-item span{
+  font-size: 44rpx;
+  color:#c5c5c5;
+  position: absolute;
+  right: 0;
+  top:0;
 }

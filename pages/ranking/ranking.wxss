@@ -1,8 +1,6 @@
 /* pages/ranking/ranking.wxss */
 .ranking{
   padding: 45rpx 46rpx 0;
-  flex:1;
-  overflow: auto;
 }
 .title{
 	font-size: 48rpx;

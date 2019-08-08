@@ -4,6 +4,7 @@
 let { bottom } = getApp().globalData.menuBtn;//胶囊按钮的底部
 Page({
   data: {
+    helloStr: '',// 早上/上午...
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     // adt:{},
     // mm:{},
@@ -17,6 +18,11 @@ Page({
     sliderMaxWidth:0,//进度条总长
     coverFlag: true,//遮罩显示隐藏
     translate: true,//译文隐藏
+  },
+  toMine(){//去我的个人中心
+    wx.navigateTo({
+      url: '../mine/mine',
+    })
   },
   play(e){
     // console.log(e)
@@ -86,16 +92,32 @@ Page({
     return;
   },
   onLoad: function () {
-    wx.getUserInfo({
-      success: res => {
-        console.log(res)
-        app.globalData.userInfo = res.userInfo
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
-        })                 
-      }
-    });
+    // wx.getUserInfo({
+    //   success: res => {
+    //     console.log(res)
+    //     app.globalData.userInfo = res.userInfo
+    //     this.setData({
+    //       userInfo: res.userInfo,
+    //       hasUserInfo: true
+    //     })                 
+    //   }
+    // });
+    let hour = new Date().getHours(),str='';
+    console.log(hour)
+    if(hour >= 0 && hour < 5 || hour >= 19 && hour <= 23){
+      str = '晚上'
+    }else if(hour >= 5 && hour < 9){
+      str = '早上'
+    }else if(hour >= 9 && hour < 12){
+      str = '上午'
+    }else if(hour == 12){
+      str = '中午'
+    }else if (hour > 12 &&  hour < 19) {
+      str = '下午'
+    }
+    this.setData({
+      helloStr: str,
+    })
     
   },
   onReady(){

@@ -1,7 +1,5 @@
 <!--pages/study/study.wxml-->
-<view class="top" style="height:{{topH}}px">
-  <!-- 顶部留白占位 -->
-</view>
+<navbar />
 <!-- 封面"开启练习" -->
 <view class="first-cover" hidden>
   <view class='bg-img'>
@@ -40,7 +38,7 @@
   </view>
 </view>
 <!-- 单词 词组列表 -->
-<view class="words-box" hidden>
+<view class="words-box flex-1" hidden>
   <view class="title">今日词组</view>
   <view class='list'>
     <view class="list-item" wx:for='{{wdt}}' wx:key='{{index}}'>
@@ -54,7 +52,7 @@
 </view>
 <view class="play-btn-box" hidden><button>play</button></view>
 <!-- 连连看单词 词组 -->
-<view class="play-box" hidden>
+<view class="play-box flex-1" hidden>
   <view class="title">单词连连看</view>
   <view class="clock">
     <icon class="icon-naozhong iconfont"></icon>
@@ -88,7 +86,7 @@
     <view>来自</view>
   </view>
 </view>
-<view class="cnj-box">
+<view class="cnj-box flex-1">
   <view class="title">今日长难句</view>
   <view class='cnj'> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. </view>
   <view class='topic'>
@@ -154,6 +152,6 @@
         {{son.translation}}
       </view>
     </view>
-    <button class="ranking-btn">查看排名</button>
+    <button class="ranking-btn" bindtap='toRanking'>查看排名</button>
   </view>
 </view>

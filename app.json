@@ -1,13 +1,13 @@
 {
   "pages": [
-    "pages/mine/record/record",
-    "pages/mine/mine",
-    "pages/ranking/ranking",
     "pages/index/index",
+    "pages/mine/mine",
+    "pages/mine/record/record",
     "pages/study/study",
+    "pages/ranking/ranking",
     "pages/home/home",
-    "pages/logs/logs",
-    "pages/mine/article/article"
+    "pages/mine/h5/h5",
+    "pages/logs/logs"
   ],
   "window": {
     "backgroundTextStyle": "light",
