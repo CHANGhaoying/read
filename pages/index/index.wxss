@@ -50,9 +50,9 @@
 }
 
 /* 短语录 */
-/* .saying{
-  border: 1rpx solid red;
-} */
+.saying{
+  /* border: 5rpx solid red; */
+}
 .saying view span{
   position: absolute;
   width: 0;
@@ -82,7 +82,7 @@
   display: flex;
   flex-direction: column;
 }
-.navbar{
+.private-bar{ /* 该页面私有的头部导航条（区别于自定义公共组件navbar）*/
   height: 200rpx;
   border-bottom: 1px solid #ddd;
   position: relative;
@@ -153,7 +153,7 @@
   border: 1rpx solid #bbb;
   position: absolute;
   right: 0;
-  top: -8rpx;
+  top: -9rpx;
   background: #fff;
   box-sizing: border-box;
 }

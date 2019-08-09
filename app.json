@@ -1,8 +1,8 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/mine/mine",
     "pages/mine/record/record",
+    "pages/mine/mine",
     "pages/study/study",
     "pages/ranking/ranking",
     "pages/home/home",
@@ -15,5 +15,6 @@
     "navigationBarTextStyle": "black",
     "navigationStyle": "custom"
   },
+  "requiredBackgroundModes": ["audio"],
   "sitemapLocation": "sitemap.json"
 }

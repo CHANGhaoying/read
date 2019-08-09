@@ -3,7 +3,8 @@
 <!-- <view 
 style="width:100rpx;height:100rpx;border:1px solid red;border-radius:50%;line-height:100rpx;text-align:center;transform:scale(0.6,0.6) translate(0,100px);opacity:0;" 
 animation='{{mm}}' bindtap='go'>哈哈</view> -->
-<view class='first-cover'>
+<!-- 首页封面 -->
+<view class='first-cover' hidden="{{whoShow != 1}}">
   <navbar text='研线MBA英语阅读' flag='true'/>
   <view class="banner"><image 
   src='https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1565262081451&di=3cdeab781dd2f294dfd94d6eb5786fbc&imgtype=0&src=http%3A%2F%2Fsup.user.img38.51sole.com%2Fimages3%2F20150717%2F1471069_20157171029990.jpg'
@@ -18,30 +19,31 @@ animation='{{mm}}' bindtap='go'>哈哈</view> -->
       <text>你好，</text>
       <open-data type="userNickName"></open-data>
     </view>
-    <button>开启今日阅读</button>
+    <button bindtap="open">开启今日阅读</button>
   </view>
 </view>
-<view class='saying' hidden>
-  <view animation='{{adt}}' wx:if='{{code>0}}' style='opacity:0;margin:50rpx 0 0 60rpx;position: relative;'>
+<!-- 首页短语录（淡入动画显示） -->
+<view class='saying' hidden="{{whoShow != 2}}" style="margin-top:{{privateBarH}}px;">
+  <view animation='{{sayingAnimat}}' wx:if="{{sayingCode>0}}" style='opacity:0;margin:50rpx 0 0 60rpx;position: relative;'>
     <span></span>
     <view bindtap="aa">Hi，<open-data type="userNickName"></open-data></view>
   </view>
-  <view animation='{{adt}}' wx:if='{{code>1}}' style='opacity:0;margin:50rpx 0 0 60rpx;position: relative;'>
+  <view animation='{{sayingAnimat}}' wx:if='{{sayingCode>1}}' style='opacity:0;margin:50rpx 0 0 60rpx;position: relative;'>
     <span></span>
     <view>马上要开始学习了 感觉怎么样呀！</view>
   </view>
-  <view animation='{{adt}}' wx:if='{{code>2}}' style='opacity:0;margin:50rpx 0 0 60rpx;position: relative;'>
+  <view animation='{{sayingAnimat}}' wx:if='{{sayingCode>2}}' style='opacity:0;margin:50rpx 0 0 60rpx;position: relative;'>
     <span></span>
-    <view><text>刚开始学不会没关系，\n坚持学习会有收获的！</text></view>
+    <view><text>刚开始学不会没关系，坚持学习会有收获的！</text></view>
   </view>
-  <view animation='{{adt}}' wx:if='{{code>3}}' style='opacity:0;margin:50rpx 0 0 60rpx;position: relative;'>
+  <view animation='{{sayingAnimat}}' wx:if='{{sayingCode>3}}' style='opacity:0;margin:50rpx 0 0 60rpx;position: relative;'>
     <span></span>
     <view>加油，看好你哟！</view>
   </view>
 </view>
-
-<view class="index" hidden>
-  <view class="navbar" style="height:{{navbarH}}px;">
+<!-- 首页文章-->
+<view class="index" hidden='{{whoShow != 3}}'>
+  <view class="private-bar" style="height:{{privateBarH}}px;"><!-- 该页面私有的头部导航条（区别于自定义公共组件navbar）-->
     <view style="border:2px solid;border-radius:50%;width:32px;height:32px;position:absolute;left:10px;bottom:5px;" bindtap='toMine'></view>
   </view>
   <view class='body flex-1'>
@@ -59,12 +61,11 @@ animation='{{mm}}' bindtap='go'>哈哈</view> -->
     </view>
     <view class="audio">
       <view class="iconfont {{playflag ? 'icon-bofang' : 'icon-pause'}}" bindtap='play'></view>
-      
-      <text>00:05</text>
+      <text>{{currentTime}}</text>
       <view class="slider" bindtouchmove="move" bindtap="tap" bindtouchend="end">
-        <view style="width:{{sliderW}}"><p catchtouchstart="start"><span></span></p></view>
+        <view style="width:{{sliderW}}px"><p catchtouchstart="start"><span></span></p></view>
       </view>
-      <text>05:05</text>
+      <text>{{duration}}</text>
     </view>
     <view class='article'>
       <view class="english">Scientists <span bindtap='findWord'>revealed<icon></icon></span> an asteroid dubbed by some as a "city killer" came closer to the Earth than the moon this week.</view>
@@ -88,7 +89,7 @@ animation='{{mm}}' bindtap='go'>哈哈</view> -->
     </view>
   </view>
 </view>
-
+<!-- 首页遮罩（搜索单词） -->
 <view class='cover' catchtap='none' hidden="{{coverFlag}}">
   <view class='sash-window'>
     <view class='top-btn'>
