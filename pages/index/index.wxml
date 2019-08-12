@@ -10,14 +10,13 @@ animation='{{mm}}' bindtap='go'>哈哈</view> -->
   src='https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1565262081451&di=3cdeab781dd2f294dfd94d6eb5786fbc&imgtype=0&src=http%3A%2F%2Fsup.user.img38.51sole.com%2Fimages3%2F20150717%2F1471069_20157171029990.jpg'
   ></image></view>
   <view class='card'>
-    <view>The harder you work The luckier you will be. Shu</view>
-    <view class='hello'>
+    <view>{{sendWord}}</view>
+    <view class='hello' wx:if='{{userAllow}}'>
       <open-data type="userNickName"></open-data>
-      <text>，{{helloStr}}好\n你已经坚持打卡2天啦，加油！</text>
+      <text>，{{helloStr}}好\n你已经坚持打卡{{punchDays}}天啦，加油！</text>
     </view>
-    <view class='hello' hidden>
-      <text>你好，</text>
-      <open-data type="userNickName"></open-data>
+    <view class='hello' wx:else>
+      <text>亲爱的朋友，{{helloStr}}好！</text>
     </view>
     <button bindtap="open">开启今日阅读</button>
   </view>
@@ -26,25 +25,19 @@ animation='{{mm}}' bindtap='go'>哈哈</view> -->
 <view class='saying' hidden="{{whoShow != 2}}" style="margin-top:{{privateBarH}}px;">
   <view animation='{{sayingAnimat}}' wx:if="{{sayingCode>0}}" style='opacity:0;margin:50rpx 0 0 60rpx;position: relative;'>
     <span></span>
-    <view bindtap="aa">Hi，<open-data type="userNickName"></open-data></view>
+    <view wx:if='{{userAllow}}'>Hi，<open-data type="userNickName"></open-data></view>
+    <view wx:else>Hi，亲爱的朋友</view>
   </view>
-  <view animation='{{sayingAnimat}}' wx:if='{{sayingCode>1}}' style='opacity:0;margin:50rpx 0 0 60rpx;position: relative;'>
+  <view animation='{{sayingAnimat}}' wx:if='{{sayingCode>index+1}}' style='opacity:0;margin:50rpx 0 0 60rpx;position: relative;'
+    wx:for='{{sayings}}' wx:key='{{index}}'>
     <span></span>
-    <view>马上要开始学习了 感觉怎么样呀！</view>
-  </view>
-  <view animation='{{sayingAnimat}}' wx:if='{{sayingCode>2}}' style='opacity:0;margin:50rpx 0 0 60rpx;position: relative;'>
-    <span></span>
-    <view><text>刚开始学不会没关系，坚持学习会有收获的！</text></view>
-  </view>
-  <view animation='{{sayingAnimat}}' wx:if='{{sayingCode>3}}' style='opacity:0;margin:50rpx 0 0 60rpx;position: relative;'>
-    <span></span>
-    <view>加油，看好你哟！</view>
+    <view>{{item.quotations}}</view>
   </view>
 </view>
 <!-- 首页文章-->
 <view class="index" hidden='{{whoShow != 3}}'>
   <view class="private-bar" style="height:{{privateBarH}}px;"><!-- 该页面私有的头部导航条（区别于自定义公共组件navbar）-->
-    <view style="border:2px solid;border-radius:50%;width:32px;height:32px;position:absolute;left:10px;bottom:5px;" bindtap='toMine'></view>
+    <image src='/static/img/head.png' bindtap='toMine'></image>
   </view>
   <view class='body flex-1'>
     <view class="date">
@@ -62,29 +55,31 @@ animation='{{mm}}' bindtap='go'>哈哈</view> -->
     <view class="audio">
       <view class="iconfont {{playflag ? 'icon-bofang' : 'icon-pause'}}" bindtap='play'></view>
       <text>{{currentTime}}</text>
-      <view class="slider" bindtouchmove="move" bindtap="tap" bindtouchend="end">
-        <view style="width:{{sliderW}}px"><p catchtouchstart="start"><span></span></p></view>
+      <view class='slider-box' bindtap="tapSlider">
+        <view class="slider" bindtouchmove="move" bindtouchend="end">
+          <view style="width:{{sliderW}}px"><p><span></span><i catchtouchstart="start"></i></p></view>
+        </view>
       </view>
       <text>{{duration}}</text>
     </view>
     <view class='article'>
       <view class="english">Scientists <span bindtap='findWord'>revealed<icon></icon></span> an asteroid dubbed by some as a "city killer" came closer to the Earth than the moon this week.</view>
-      <view class="chinese" hidden='{{translate}}'>科学家透露本周有一颗被科学家戏称为“城市杀手”的小行星距离地球比月球还近。</view>
+      <view class="chinese" hidden='{{translateFlag == 1}}'>科学家透露本周有一颗被科学家戏称为“城市杀手”的小行星距离地球比月球还近。</view>
       <view class="english">Scientists revealed an asteroid dubbed by some as a "city killer" came closer to the Earth than the moon this week.</view>
-      <view class="chinese" hidden='{{translate}}'>科学家透露本周有一颗被科学家戏称为“城市杀手”的小行星距离地球比月球还近。</view>
+      <view class="chinese" hidden='{{translateFlag == 1}}'>科学家透露本周有一颗被科学家戏称为“城市杀手”的小行星距离地球比月球还近。</view>
     </view>
   </view>
   <view class="footer">
-    <view>
-      <image></image>
-      <text>已收藏</text>
+    <view bindtap='collect'>
+      <image src="/static/img/collect{{collectFlag}}.png"></image>
+      <text>{{collectFlag == 1 ? '收藏' : '已收藏'}}</text>
     </view>
     <view bindtap='translate'>
-      <image></image>
-      <text>{{translate ? '翻译' : '原文'}}</text>
+      <image src="/static/img/translate{{translateFlag}}.png"></image>
+      <text>{{translateFlag == 1 ? '翻译' : '原文'}}</text>
     </view>
     <view bindtap="toStudy">
-      <image></image>
+      <image src="/static/img/next{{nextFlag}}.png"></image>
       <text>下一项</text>
     </view>
   </view>

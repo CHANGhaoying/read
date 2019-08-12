@@ -5,10 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    code:NaN,
-    boxflag:'',
-    arr1:'123456',
-    arr2:'45678'
+    
   },
 
   /**

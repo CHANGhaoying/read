@@ -1,0 +1,25 @@
+/* pages/allow/allow.wxss */
+.allow{
+  /* border: 1rpx solid red; */
+  min-height: 50rpx;
+  text-align: center;
+  padding-top: 130rpx;
+  font-size: 30rpx;
+  color: #323232;
+}
+.allow image{
+  width: 498rpx;
+  height: 476rpx;
+}
+.allow view{
+  margin: 110rpx 0 160rpx;
+}
+.allow button{
+  border-radius: 0;
+  width: 72%;
+	height: 90rpx;
+  line-height: 90rpx;
+	background-image: linear-gradient(42deg,#20cf8f 0%,#4cd97a 100%);
+  font-size: 32rpx;
+  color: #fff;
+}

@@ -35,7 +35,7 @@
 }
 .mylist-item image{
   width: 70rpx;
-  height: 80rpx;
+  height: 70rpx;
   vertical-align: middle;
 }
 .mylist-item text{

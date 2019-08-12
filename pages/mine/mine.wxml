@@ -12,7 +12,7 @@
   </view>
   <view class="mylist">
     <view class="mylist-item" bindtap='goto' wx:for='{{list}}' wx:key='{{index}}' data-index='{{index}}'>
-      <image src='../../static/img/{{item.url}}'></image>
+      <image src='/static/img/{{item.url}}'></image>
       <text>{{item.txt}}</text>
       <span class='iconfont icon-iconfonti'></span>
     </view>

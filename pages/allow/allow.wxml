@@ -1,0 +1,7 @@
+<!--pages/allow/allow.wxml-->
+<navbar text='微信授权'/>
+<view class='allow'>
+  <image src="/static/img/bg2.png"></image>
+  <view>小程序需要您的授权才能正常使用 ~~</view>
+  <button open-type="getUserInfo" bindgetuserinfo='allow'>确定授权</button>
+</view>

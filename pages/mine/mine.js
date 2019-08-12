@@ -5,11 +5,11 @@ Page({
    */
   data: {
     list: [
-      { url: 'book2.png', txt: '学习记录' },
-      { url: 'book2.png', txt: '我收藏的文章' },
-      { url: 'book2.png', txt: '往期文章' },
-      { url: 'book2.png', txt: '关于我们' },
-      { url: 'book2.png', txt: '研线课堂' }
+      { url: 'xxjl.png', txt: '学习记录' },
+      { url: 'scwz.png', txt: '我收藏的文章' },
+      { url: 'wqwz.png', txt: '往期文章' },
+      { url: 'about.png', txt: '关于我们' },
+      { url: 'yxkt.png', txt: '研线课堂' }
     ],
   },
   goto(e){
