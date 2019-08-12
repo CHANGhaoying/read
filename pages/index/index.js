@@ -87,13 +87,14 @@ Page({
     let date ="2019-11-02";
     let months= ['January', 'february', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     // let arr = date.split('-')
-    console.log(date[5])
-    if(date[5] == 0){
-      console.log(months[date[6]-1])
-    }else{
-      console.log(months[date.substr(5,2)-1])
-    }
-
+    // console.log(date[5])
+    // if(date[5] == 0){
+    //   console.log(months[date[6]-1])
+    // }else{
+    //   console.log(months[date.substr(5,2)-1])
+    // }
+    let mon = date[5] == 0 ? months[date[6] - 1] : months[date.substr(5, 2) - 1];
+    
 
   },
   toMine(){//去 我的个人中心
