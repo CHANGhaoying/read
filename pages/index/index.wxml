@@ -10,7 +10,7 @@ animation='{{mm}}' bindtap='go'>哈哈</view> -->
   src='https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1565262081451&di=3cdeab781dd2f294dfd94d6eb5786fbc&imgtype=0&src=http%3A%2F%2Fsup.user.img38.51sole.com%2Fimages3%2F20150717%2F1471069_20157171029990.jpg'
   ></image></view>
   <view class='card'>
-    <view>{{sendWord}}</view>
+    <view>The harder you work,The luckier you will be.Shu</view>
     <view class='hello' wx:if='{{userAllow}}'>
       <open-data type="userNickName"></open-data>
       <text>，{{helloStr}}好\n你已经坚持打卡{{punchDays}}天啦，加油！</text>
@@ -28,10 +28,22 @@ animation='{{mm}}' bindtap='go'>哈哈</view> -->
     <view wx:if='{{userAllow}}'>Hi，<open-data type="userNickName"></open-data></view>
     <view wx:else>Hi，亲爱的朋友</view>
   </view>
-  <view animation='{{sayingAnimat}}' wx:if='{{sayingCode>index+1}}' style='opacity:0;margin:50rpx 0 0 60rpx;position: relative;'
+  <!-- <view animation='{{sayingAnimat}}' wx:if='{{sayingCode>index+1}}' style='opacity:0;margin:50rpx 0 0 60rpx;position: relative;'
     wx:for='{{sayings}}' wx:key='{{index}}'>
     <span></span>
     <view>{{item.quotations}}</view>
+  </view> -->
+  <view animation='{{sayingAnimat}}' wx:if='{{sayingCode>1}}' style='opacity:0;margin:50rpx 0 0 60rpx;position: relative;'>
+    <span></span>
+    <view>努力加油，看好你哟</view>
+  </view>
+  <view animation='{{sayingAnimat}}' wx:if='{{sayingCode>2}}' style='opacity:0;margin:50rpx 0 0 60rpx;position: relative;'>
+    <span></span>
+    <view>努力加油，看好你哟，加油加油</view>
+  </view>
+  <view animation='{{sayingAnimat}}' wx:if='{{sayingCode>3}}' style='opacity:0;margin:50rpx 0 0 60rpx;position: relative;'>
+    <span></span>
+    <view>努力加油，看好你哟</view>
   </view>
 </view>
 <!-- 首页文章-->

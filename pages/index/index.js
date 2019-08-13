@@ -11,18 +11,14 @@ Page({
     privateBarH: bottom + 8,//该页面私有的头部导航条（区别于自定义公共组件navbar）
 
     helloStr: '',// 早上/上午...
-    whoShow: 3,//封面 语录页 文章页 三者谁显示切换
+    whoShow: 1,//封面 语录页 文章页 三者谁显示切换
     sayingCode:0,//四段动画语录依次显示
     sayingAnimat:{},//语录动画效果
     sendWord:'',//封面寄语
     punchDays: 0,//坚持打卡天数
     sayings:[],//语录们
 
-    
-
-
-
-
+  
     playflag: true,//播放 暂停音频
     duration: '00:00',//音频总长
     currentTime: '00:00',//当前播放时间
@@ -243,8 +239,14 @@ Page({
   },
   
   none() { return },//禁止搜索单词遮罩冒泡
-  onLoad: function () {
-    this.formatDate()
+  onLoad: function (options) {
+    console.log(options)
+    if(options.flag){
+      this.setData({
+        whoShow: 3,
+      })
+    }
+    // this.formatDate()
     // wx.getUserInfo({
     //   success: res => {
     //     console.log(res)
@@ -293,36 +295,36 @@ Page({
       helloStr: str,
     });
 
-    http.request({
-      url: '/nav',//首页寄语 气泡语录接口
-      method: 'GET',
-      data:{
+    // http.request({
+    //   url: '/nav',//首页寄语 气泡语录接口
+    //   method: 'GET',
+    //   data:{
 
-      },
-      success: res=>{
-        console.log(res)
-        this.setData({
-          sendWord: res.data.motivation,
-          punchDays: res.data.punch_days || 0,
-          sayings: res.data.quotations,
-        })
-      }
-    });
-    http.request({
-      url: '/article/info',//文章接口
-      method: 'GET',
-      data: {
-        id: 21,
-      },
-      success: res => {
-        console.log(res)
-        // this.setData({
-        //   sendWord: res.data.motivation,
-        //   punchDays: res.data.punch_days || 0,
-        //   sayings: res.data.quotations,
-        // })
-      }
-    })
+    //   },
+    //   success: res=>{
+    //     console.log(res)
+    //     this.setData({
+    //       sendWord: res.data.motivation,
+    //       punchDays: res.data.punch_days || 0,
+    //       sayings: res.data.quotations,
+    //     })
+    //   }
+    // });
+    // http.request({
+    //   url: '/article/info',//文章接口
+    //   method: 'GET',
+    //   data: {
+    //     id: 21,
+    //   },
+    //   success: res => {
+    //     console.log(res)
+    //     // this.setData({
+    //     //   sendWord: res.data.motivation,
+    //     //   punchDays: res.data.punch_days || 0,
+    //     //   sayings: res.data.quotations,
+    //     // })
+    //   }
+    // })
     
 
   },

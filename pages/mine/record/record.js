@@ -21,9 +21,9 @@ Page({
   },
   toShow(){//展开长难句详情
     if(this.data.navHide){
-      wx.reLaunch({ url: '/pages/index/index', })//关闭所有页面，打开index页面   
+      wx.reLaunch({ url: '/pages/index/index?flag=1', })//关闭所有页面，打开index页面   
     }else{
-      wx.navigateTo({ url: '../../study/study', })
+      wx.navigateTo({ url: '../../study/study?flag=1', })
     }
   },
   /**

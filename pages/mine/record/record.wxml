@@ -32,49 +32,49 @@
       <view>7月24日</view>
       <view>
         <text>Lorem ipsum dolor sit amet, consectetur elit. euismod bibendum ipsum dolor sit amet consectetur elit. euismod bibendum</text>
-        <span class='iconfont icon-you'></span>
+        <span class='iconfont icon-you' bindtap='toShow'></span>
       </view>
     </view>
     <view class='cnj-item'>
       <view>7月24日</view>
       <view>
         <text>Lorem ipsum dolor sit amet, consectetur elit. euismod bibendum</text>
-        <span class='iconfont icon-you'></span>
+        <span class='iconfont icon-you' bindtap='toShow'></span>
       </view>
     </view>
     <view class='cnj-item'>
       <view>7月24日</view>
       <view>
         <text>Lorem ipsum dolor sit amet, consectetur elit. euismod bibendum</text>
-        <span class='iconfont icon-you'></span>
+        <span class='iconfont icon-you' bindtap='toShow'></span>
       </view>
     </view>
     <view class='cnj-item'>
       <view>7月24日</view>
       <view>
         <text>Lorem ipsum dolor sit amet, consectetur elit. euismod bibendum</text>
-        <span class='iconfont icon-you'></span>
+        <span class='iconfont icon-you' bindtap='toShow'></span>
       </view>
     </view>
     <view class='cnj-item'>
       <view>7月24日</view>
       <view>
         <text>Lorem ipsum dolor sit amet, consectetur elit. euismod bibendum</text>
-        <span class='iconfont icon-you'></span>
+        <span class='iconfont icon-you' bindtap='toShow'></span>
       </view>
     </view>
     <view class='cnj-item'>
       <view>7月24日</view>
       <view>
         <text>Lorem ipsum dolor sit amet, consectetur elit. euismod bibendum</text>
-        <span class='iconfont icon-you'></span>
+        <span class='iconfont icon-you' bindtap='toShow'></span>
       </view>
     </view>
     <view class='cnj-item'>
       <view>7月24日</view>
       <view>
         <text>Lorem ipsum dolor sit amet, consectetur elit. euismod bibendum</text>
-        <span class='iconfont icon-you'></span>
+        <span class='iconfont icon-you' bindtap='toShow'></span>
       </view>
     </view>
   </view>
