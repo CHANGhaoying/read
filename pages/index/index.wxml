@@ -6,11 +6,9 @@ animation='{{mm}}' bindtap='go'>哈哈</view> -->
 <!-- 首页封面 -->
 <view class='first-cover' hidden="{{whoShow != 1}}">
   <navbar text='研线MBA英语阅读' flag='true'/>
-  <view class="banner"><image 
-  src='https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1565262081451&di=3cdeab781dd2f294dfd94d6eb5786fbc&imgtype=0&src=http%3A%2F%2Fsup.user.img38.51sole.com%2Fimages3%2F20150717%2F1471069_20157171029990.jpg'
-  ></image></view>
+  <view class="banner"><image src='/static/img/small_banner.png'></image></view>
   <view class='card'>
-    <view>The harder you work,The luckier you will be.Shu</view>
+    <view>{{sendWord}}</view>
     <view class='hello' wx:if='{{userAllow}}'>
       <open-data type="userNickName"></open-data>
       <text>，{{helloStr}}好\n你已经坚持打卡{{punchDays}}天啦，加油！</text>
@@ -28,22 +26,10 @@ animation='{{mm}}' bindtap='go'>哈哈</view> -->
     <view wx:if='{{userAllow}}'>Hi，<open-data type="userNickName"></open-data></view>
     <view wx:else>Hi，亲爱的朋友</view>
   </view>
-  <!-- <view animation='{{sayingAnimat}}' wx:if='{{sayingCode>index+1}}' style='opacity:0;margin:50rpx 0 0 60rpx;position: relative;'
+  <view animation='{{sayingAnimat}}' wx:if='{{sayingCode>index+1}}' style='opacity:0;margin:50rpx 0 0 60rpx;position: relative;'
     wx:for='{{sayings}}' wx:key='{{index}}'>
     <span></span>
     <view>{{item.quotations}}</view>
-  </view> -->
-  <view animation='{{sayingAnimat}}' wx:if='{{sayingCode>1}}' style='opacity:0;margin:50rpx 0 0 60rpx;position: relative;'>
-    <span></span>
-    <view>努力加油，看好你哟</view>
-  </view>
-  <view animation='{{sayingAnimat}}' wx:if='{{sayingCode>2}}' style='opacity:0;margin:50rpx 0 0 60rpx;position: relative;'>
-    <span></span>
-    <view>努力加油，看好你哟，加油加油</view>
-  </view>
-  <view animation='{{sayingAnimat}}' wx:if='{{sayingCode>3}}' style='opacity:0;margin:50rpx 0 0 60rpx;position: relative;'>
-    <span></span>
-    <view>努力加油，看好你哟</view>
   </view>
 </view>
 <!-- 首页文章-->
@@ -53,16 +39,16 @@ animation='{{mm}}' bindtap='go'>哈哈</view> -->
   </view>
   <view class='body flex-1'>
     <view class="date">
-        <text>March，22nd，2019</text>
+        <text>{{pushDate}}</text>
     </view>
     <view class="title">
-      <text>The harder you work,The luckier you will be.Shu</text>
+      <text>{{info.title}}</text>
     </view>
     <view class="type">
-      <span>R</span><text>eal-time news</text>
+      <span>{{firstWord}}</span><text> {{articleType}}</text>
     </view>
     <view class="img">
-      <image src="../../static/img/neza.jpg"></image>
+      <image src="http://b3-q.mafengwo.net/s7/M00/38/F0/wKgB6lRi9waAYDRbAAWy4MYwmtg84.jpeg"></image>
     </view>
     <view class="audio">
       <view class="iconfont {{playflag ? 'icon-bofang' : 'icon-pause'}}" bindtap='play'></view>
@@ -75,10 +61,34 @@ animation='{{mm}}' bindtap='go'>哈哈</view> -->
       <text>{{duration}}</text>
     </view>
     <view class='article'>
-      <view class="english">Scientists <span bindtap='findWord'>revealed<icon></icon></span> an asteroid dubbed by some as a "city killer" came closer to the Earth than the moon this week.</view>
-      <view class="chinese" hidden='{{translateFlag == 1}}'>科学家透露本周有一颗被科学家戏称为“城市杀手”的小行星距离地球比月球还近。</view>
-      <view class="english">Scientists revealed an asteroid dubbed by some as a "city killer" came closer to the Earth than the moon this week.</view>
-      <view class="chinese" hidden='{{translateFlag == 1}}'>科学家透露本周有一颗被科学家戏称为“城市杀手”的小行星距离地球比月球还近。</view>
+      <wxs module='m1'>
+        function toArr(text){
+          var arr = text.split(' ');
+          return arr
+        }
+        function find(str,arr){
+          var reg = getRegExp("[a-z]", "g");
+          var sArr = str.toLowerCase().match(reg);
+          var ss = sArr.join('');
+          var code = 0;
+          for(i = 0; i < arr.length; i ++){
+            if(arr[i].english_word === ss){
+              code = 1
+            }
+          }
+          return code  
+        }
+        module.exports = {toArr:toArr,find:find}
+      </wxs>
+      <block wx:for='{{info.content}}' wx:key='{{index}}'>
+        <view class="english">
+          <span bindtap='findWord' wx:for='{{m1.toArr(item.text)}}' wx:key='{{index}}'
+           data-code='{{m1.find(item,info.words)}}'>
+            {{item}}<icon wx:if='{{m1.find(item,info.words)}}'></icon>
+          </span>
+        </view>
+        <view class="chinese" hidden='{{translateFlag == 1}}'>{{item.translation}}</view>
+      </block>
     </view>
   </view>
   <view class="footer">

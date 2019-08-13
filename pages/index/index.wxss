@@ -194,6 +194,7 @@
 .english span{
   display:inline-block;
   position: relative;
+  margin-right: 10rpx;
 }
 .english span icon{
   position: absolute;

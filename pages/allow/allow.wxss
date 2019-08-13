@@ -1,6 +1,5 @@
 /* pages/allow/allow.wxss */
 .allow{
-  /* border: 1rpx solid red; */
   min-height: 50rpx;
   text-align: center;
   padding-top: 130rpx;

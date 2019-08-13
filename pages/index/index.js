@@ -18,7 +18,11 @@ Page({
     punchDays: 0,//坚持打卡天数
     sayings:[],//语录们
 
-  
+    pushDate:'',//文章日期
+    info:{},//今日文章页面信息
+    firstWord: '', //文章类型首字母（大写）
+    articleType: '',//文章类型（首字母大写）
+    
     playflag: true,//播放 暂停音频
     duration: '00:00',//音频总长
     currentTime: '00:00',//当前播放时间
@@ -69,29 +73,60 @@ Page({
       })
       this.fade_in_out(1)//淡入
     }, 1000);
-
     setTimeout(()=>{
       this.fade_in_out(0),//淡出
       setTimeout(()=>{
         this.setData({
-          whoShow:3,
-        })
+          whoShow:3,//显示文章页面
+        });
+        this.getArticleInfo()
       },1300)
     },5500)
   },
-  formatDate(){//定义格式化日期的方法
-    let date ="2019-11-02";
+  getArticleInfo(){//获取文章信息
+    http.request({
+      url: '/article/info',//文章接口
+      method: 'GET',
+      data: {
+        id: 21,
+      },
+      success: res => {
+        console.log(res)
+        this.formatDate(res.data.push_date);//格式化日期
+        let type = res.data.english_name;
+        let minute = parseInt(res.data.audio_time / 60), second = parseInt(res.data.audio_time % 60);
+        this.setData({
+          info: res.data,
+          firstWord: type[0].toUpperCase(),
+          articleType: type[0].toUpperCase() + type.slice(1, type.length),
+          duration: (minute < 10 ? "0" + minute : minute) + ":" + (second < 10 ? "0" + second : second),
+        })
+      }
+    })
+  },
+  formatDate(date){//格式化日期的方法
     let months= ['January', 'february', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-    // let arr = date.split('-')
-    // console.log(date[5])
-    // if(date[5] == 0){
-    //   console.log(months[date[6]-1])
-    // }else{
-    //   console.log(months[date.substr(5,2)-1])
-    // }
+    let year = date.substr(0,4);
     let mon = date[5] == 0 ? months[date[6] - 1] : months[date.substr(5, 2) - 1];
-    
-
+    let day,str1,str2;
+    if (date[8] == 0) {
+      str1 = day = date.substr(9, 1)
+    } else {
+      str1 = day = date.substr(8, 2)
+    };
+    if (date[8] == 1 || date[9] >= 4 || date[9] == 0 ){
+      str2 = 'th'
+    } else if (date[9] == 1) {
+      str2 = 'st'
+    } else if (date[9] == 2) {
+      str2 = 'nd'
+    } else if (date[9] == 3) {
+      str2 = 'rd'
+    };
+    day = str1 + str2;
+    this.setData({
+      pushDate: mon + '，' + day + '，' + year,
+    })
   },
   toMine(){//去 我的个人中心
     if(this.data.userAllow){
@@ -132,12 +167,11 @@ Page({
   play(){//播放
     if(firstPlay){//初次点击播放
       firstPlay = false;//已经首次点击过播放，把判断值改为false
-      music.title = '此时此刻'
-      music.epname = '此时此刻'
-      music.singer = '许巍'
-      music.coverImgUrl = 'http://y.gtimg.cn/music/photo_new/T002R300x300M000003rsKF44GyaSk.jpg?max_age=2592000'
+      let {info} = this.data
+      music.title = info.title
+      music.coverImgUrl = 'http://b3-q.mafengwo.net/s7/M00/38/F0/wKgB6lRi9waAYDRbAAWy4MYwmtg84.jpeg';//info.audio_url
       // 设置了 src 之后会自动播放
-      music.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb.mp3?guid=ffffffff82def4af4b12b3cd9337d5e7&uin=346897220&vkey=6292F51E1E384E061FF02C31F716658E5C81F5594D561F2E88B854E81CAAB7806D5E4F103E55D33C16F3FAC506D1AB172DE8600B37E43FAD&fromtag=46';
+      music.src = info.audio_url
     }else{//非初次点击播放暂停按钮
       if (this.data.playflag) {//播放
         music.play()
@@ -149,8 +183,8 @@ Page({
       let minute = parseInt(music.duration / 60), second = parseInt(music.duration % 60);
       let { sliderMaxWidth } = this.data;
       this.setData({
-        playflag: false,
-        duration: (minute < 10 ? "0" + minute : minute) + ":" + second,
+        playflag: false, 
+        duration: (minute < 10 ? "0" + minute : minute) + ":" + (second < 10 ? "0" + second : second),
         seconds: music.duration, //总秒数
       });
      
@@ -162,15 +196,18 @@ Page({
     });
     music.onStop(()=>{//监听背景音频关闭
       this.setData({
+        playflag: true,//播放按钮复原
         currentTime: '00:00',
         sliderW: 22 * this.data.ratio,
       })
     })
     music.onTimeUpdate(() => {//监听背景音频播放进度更新
+    
       let minute = parseInt(music.currentTime / 60), second = parseInt(music.currentTime % 60);
       let { ratio, sliderMaxWidth, seconds} = this.data;
       let newSliderW = 22 * ratio + sliderMaxWidth * music.currentTime / seconds;
       if (newSliderW >= sliderMaxWidth) newSliderW = sliderMaxWidth;
+      console.log(seconds, sliderMaxWidth)
       this.setData({
         currentTime: (minute < 10 ? "0" + minute : minute) + ':' + (second < 10 ? "0" + second : second),
         sliderW: newSliderW,
@@ -226,43 +263,31 @@ Page({
     music.play()
 
   },
-  findWord(){//点击单词
+  findWord(e){//点击单词
+    if (e.currentTarget.dataset.code){
+      this.setData({
+        coverFlag: false,
+      })
+    }
     
-    this.setData({
-      coverFlag: false,
-    })
   },
   close(){//关闭遮罩
     this.setData({
       coverFlag: true,
     })
   },
-  
   none() { return },//禁止搜索单词遮罩冒泡
   onLoad: function (options) {
-    console.log(options)
-    if(options.flag){
+    if(options.flag){//来自学习记录 文章 或 收藏的文章
       this.setData({
         whoShow: 3,
       })
     }
-    // this.formatDate()
-    // wx.getUserInfo({
-    //   success: res => {
-    //     console.log(res)
-    //     // app.globalData.userInfo = res.userInfo
-    //     // this.setData({
-    //     //   userInfo: res.userInfo,
-    //     //   hasUserInfo: true
-    //     // })                 
-    //   },
-    //   fail:res=>{
-    //     console.log(res)
-    //   }
-    // });
+    
 
     let query = wx.createSelectorQuery();
     query.select('.slider').boundingClientRect(rect => {
+      console.log(rect)
       this.setData({
         sliderMaxWidth: rect.width,
       })
@@ -295,41 +320,26 @@ Page({
       helloStr: str,
     });
 
-    // http.request({
-    //   url: '/nav',//首页寄语 气泡语录接口
-    //   method: 'GET',
-    //   data:{
+    http.request({
+      url: '/nav',//首页寄语 气泡语录接口
+      method: 'GET',
+      data:{
 
-    //   },
-    //   success: res=>{
-    //     console.log(res)
-    //     this.setData({
-    //       sendWord: res.data.motivation,
-    //       punchDays: res.data.punch_days || 0,
-    //       sayings: res.data.quotations,
-    //     })
-    //   }
-    // });
-    // http.request({
-    //   url: '/article/info',//文章接口
-    //   method: 'GET',
-    //   data: {
-    //     id: 21,
-    //   },
-    //   success: res => {
-    //     console.log(res)
-    //     // this.setData({
-    //     //   sendWord: res.data.motivation,
-    //     //   punchDays: res.data.punch_days || 0,
-    //     //   sayings: res.data.quotations,
-    //     // })
-    //   }
-    // })
+      },
+      success: res=>{
+        console.log(res)
+        this.setData({
+          sendWord: res.data.motivation,
+          punchDays: res.data.punch_days || 0,
+          sayings: res.data.quotations,
+        })
+      }
+    });
+    
     
 
   },
   onReady(){
-    
     // let n = 0
     // playInterval = setInterval(()=>{
     //   console.log(777)

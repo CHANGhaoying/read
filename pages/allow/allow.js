@@ -1,4 +1,6 @@
 // pages/allow/allow.js
+
+import getToken from '../../utils/getToken.js'
 Page({
 
   /**
@@ -13,7 +15,13 @@ Page({
       wx.redirectTo({
         url: this.data.goto,
       })
-    }
+    };
+    //解构 昵称 头像
+    let { nickName, avatarUrl } = e.detail.userInfo;
+    console.log(nickName)
+    getToken(tk => {//获取token的全局公共方法
+      console.log(tk)
+    }, nickName, avatarUrl)
   },
   /**
    * 生命周期函数--监听页面加载
@@ -35,7 +43,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    
   },
 
   /**
