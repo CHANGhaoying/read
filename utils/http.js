@@ -5,7 +5,7 @@ const api_base_url = //"https://apiwx.yanxian.org/v1";//线上服务器
 // const tips = {}
 class HTTP {
   request(params) {
-    if(!params.method) params.method = "POST"//默认为POST方式
+    if (!params.method) params.method = "GET"//默认为GET方式
     wx.request({
       url: api_base_url + params.url,//相同部分和不同的部分拼接
       method: params.method,

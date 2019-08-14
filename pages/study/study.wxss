@@ -2,14 +2,14 @@
 
 .first-cover .bg-img{
   text-align: center;
-  /* padding-top: 120rpx; */
+  padding-top: 40rpx;
 }
 .bg-img image{
   width: 580rpx;
   height: 647rpx;
 }
 .first-cover .talk{
-  padding: 48rpx 80rpx 130rpx;
+  padding: 48rpx 80rpx 100rpx;
 }
 .talk view{
   font-size: 50rpx;

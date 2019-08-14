@@ -11,7 +11,7 @@ Page({
     privateBarH: bottom + 8,//该页面私有的头部导航条（区别于自定义公共组件navbar）
 
     helloStr: '',// 早上/上午...
-    whoShow: 1,//封面 语录页 文章页 三者谁显示切换
+    whoShow: 3,//封面 语录页 文章页 三者谁显示切换
     sayingCode:0,//四段动画语录依次显示
     sayingAnimat:{},//语录动画效果
     sendWord:'',//封面寄语
@@ -84,14 +84,19 @@ Page({
     },5500)
   },
   getArticleInfo(){//获取文章信息
+    let query = wx.createSelectorQuery();
+    query.select('.slider').boundingClientRect(rect => {
+      this.setData({
+        sliderMaxWidth: rect.width,//获取进度条总长
+      })
+    }).exec();
     http.request({
       url: '/article/info',//文章接口
-      method: 'GET',
       data: {
         id: 21,
       },
       success: res => {
-        console.log(res)
+        console.log(res.data)
         this.formatDate(res.data.push_date);//格式化日期
         let type = res.data.english_name;
         let minute = parseInt(res.data.audio_time / 60), second = parseInt(res.data.audio_time % 60);
@@ -202,12 +207,10 @@ Page({
       })
     })
     music.onTimeUpdate(() => {//监听背景音频播放进度更新
-    
       let minute = parseInt(music.currentTime / 60), second = parseInt(music.currentTime % 60);
       let { ratio, sliderMaxWidth, seconds} = this.data;
       let newSliderW = 22 * ratio + sliderMaxWidth * music.currentTime / seconds;
       if (newSliderW >= sliderMaxWidth) newSliderW = sliderMaxWidth;
-      console.log(seconds, sliderMaxWidth)
       this.setData({
         currentTime: (minute < 10 ? "0" + minute : minute) + ':' + (second < 10 ? "0" + second : second),
         sliderW: newSliderW,
@@ -235,7 +238,6 @@ Page({
     if (!startX) return;//如果用户没按压进度条圆点，拖动无效
     let x = e.touches[0].clientX, ln = x - startX + sliderW_record;;
 
-    
     if (ln < 0) ln = 22 * ratio;
     if (ln >= sliderMaxWidth) ln = sliderMaxWidth;
     this.setData({
@@ -282,16 +284,11 @@ Page({
       this.setData({
         whoShow: 3,
       })
+      // this.getArticleInfo()
     }
-    
+    this.getArticleInfo()
 
-    let query = wx.createSelectorQuery();
-    query.select('.slider').boundingClientRect(rect => {
-      console.log(rect)
-      this.setData({
-        sliderMaxWidth: rect.width,
-      })
-    }).exec();
+    
     //获取设备信息
     wx.getSystemInfo({
       success: res => {
