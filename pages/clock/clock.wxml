@@ -1,0 +1,16 @@
+<!--pages/clock/clock.wxml-->
+<navbar text='研线MBA英语阅读'/>
+<view class="banner">
+  <image src="https://apiwx.yanxian.org/static/img/poster1.png"></image>
+  <text>{{punch_days}}</text>
+</view>
+<view class="user">
+  <view><open-data type='userAvatarUrl'></open-data></view>
+  <view><open-data type='userNickName'></open-data></view>
+</view>
+<view class='cheer'>你已经完成了今天的任务，继续加油哦！</view>
+<view class='btn-box'>
+  <button open-type="share">分享打卡</button>
+  <button bindtap="save">收藏图片</button>
+</view>
+<canvas canvas-id='canvas1' style="width:{{canvasW}}px;height:{{canvasH}}px;"></canvas>

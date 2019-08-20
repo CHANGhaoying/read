@@ -1,81 +1,54 @@
 <!--pages/mine/son/record/record.wxml-->
 <navbar text='{{text}}'/>
-<view class="nav" hidden="{{navHide}}">
+<block wx:if='{{recordData.length>0}}'>
+<view class="nav" hidden="{{navHide}}" style="top:{{topH}}px">
   <view class="{{index == navIndex && 'active'}}" wx:for='{{navItems}}'
     bindtap='tapnav' data-index='{{index}}' wx:key='{{index}}'>
     <text>{{item}}</text>
     <icon></icon>
   </view>
 </view>
-<view class="list flex-1">
-  <view hidden = '{{navIndex == 2}}'>
-    <block>
-    <view class="date">2019-02-22</view>
-    <view class="list-item" wx:for='{{wdt}}' wx:key='{{index}}'>
-      <view>
-        <span>{{item.e}}<text>{{item.p}}</text></span>
-        <icon class="iconfont icon-shengyin"></icon>  
-      </view>
-      <view class="chinese">{{item.c}}</view>
+<view style='height:82rpx' hidden="{{navHide}}"><!-- nav的占位元素 --></view>
+<view class="body" style="padding-top: {{topH}}px">
+  <view class="list flex-1">
+    <view hidden = '{{navIndex == 2}}'>
+      <block wx:for='{{recordData}}' wx:key='{{index}}'>
+        <view class="date">{{item.push_date}}</view>
+        <!-- 单词 -->
+        <view class="list-item" wx:for='{{item.words}}' wx:key='{{index}}'  hidden="{{navIndex == 1}}">
+          <view>
+            <span>{{item.english_word}}<text>{{item.us_phonetic}}</text></span>
+            <icon class="iconfont icon-shengyin"></icon>  
+          </view>
+          <view class="chinese" wx:for='{{item.chinese_word}}' wx:key='{{index}}'>{{item}}</view>
+        </view>
+        <!-- 词组 -->
+        <view class="list-item" wx:for='{{item.phrase}}' wx:key='{{index}}' hidden="{{navIndex == 0}}">
+          <view>
+            <span>{{item.english_word}}<text>{{item.us_phonetic}}</text></span>
+            <icon class="iconfont icon-shengyin"></icon>  
+          </view>
+          <view class="chinese" wx:for='{{item.chinese_word}}' wx:key='{{index}}'>{{item}}</view>
+        </view>
+      </block>
     </view>
-    </block>
-  </view>
-  <view hidden="{{navIndex != 2}}">
-    <view class='cnj-item'>
-      <view>7月24日</view>
-      <view>
-        <text>Lorem ipsum dolor sit amet, consectetur elit.aaas</text>
-        <span class='iconfont icon-you' bindtap='toShow'></span>
+    <!-- 长难句列表 or 文章标题列表 -->
+    <view hidden="{{navIndex != 2}}">
+      <view class='cnj-item' wx:for='{{recordData}}'  wx:key='{{index}}'  
+      bindtap='toShow' data-index='{{index}}' data-article_id='{{item.article_id || item.id}}'>
+        <view>{{item.push_date}}</view>
+        <view>
+          <text>{{item.cnj.long_sentence || item.title}}</text>
+          <span class='iconfont icon-you'></span>
+        </view>
       </view>
-    </view>
-    <view class='cnj-item'>
-      <view>7月24日</view>
-      <view>
-        <text>Lorem ipsum dolor sit amet, consectetur elit. euismod bibendum ipsum dolor sit amet consectetur elit. euismod bibendum</text>
-        <span class='iconfont icon-you' bindtap='toShow'></span>
-      </view>
-    </view>
-    <view class='cnj-item'>
-      <view>7月24日</view>
-      <view>
-        <text>Lorem ipsum dolor sit amet, consectetur elit. euismod bibendum</text>
-        <span class='iconfont icon-you' bindtap='toShow'></span>
-      </view>
-    </view>
-    <view class='cnj-item'>
-      <view>7月24日</view>
-      <view>
-        <text>Lorem ipsum dolor sit amet, consectetur elit. euismod bibendum</text>
-        <span class='iconfont icon-you' bindtap='toShow'></span>
-      </view>
-    </view>
-    <view class='cnj-item'>
-      <view>7月24日</view>
-      <view>
-        <text>Lorem ipsum dolor sit amet, consectetur elit. euismod bibendum</text>
-        <span class='iconfont icon-you' bindtap='toShow'></span>
-      </view>
-    </view>
-    <view class='cnj-item'>
-      <view>7月24日</view>
-      <view>
-        <text>Lorem ipsum dolor sit amet, consectetur elit. euismod bibendum</text>
-        <span class='iconfont icon-you' bindtap='toShow'></span>
-      </view>
-    </view>
-    <view class='cnj-item'>
-      <view>7月24日</view>
-      <view>
-        <text>Lorem ipsum dolor sit amet, consectetur elit. euismod bibendum</text>
-        <span class='iconfont icon-you' bindtap='toShow'></span>
-      </view>
-    </view>
-    <view class='cnj-item'>
-      <view>7月24日</view>
-      <view>
-        <text>Lorem ipsum dolor sit amet, consectetur elit. euismod bibendum</text>
-        <span class='iconfont icon-you' bindtap='toShow'></span>
-      </view>
+      
     </view>
   </view>
 </view>
+</block>
+<block wx:else><!-- 无数据 空白页 -->
+<view class="blank">
+  <image src="/static/img/blank.png"></image>
+</view>
+</block>

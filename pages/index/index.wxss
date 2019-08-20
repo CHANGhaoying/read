@@ -1,4 +1,9 @@
+
 /* 首张封面 */
+.first-cover{
+  width: 100%;
+  overflow: hidden;
+}
 .first-cover navbar{
   position: fixed;
   width: 100%;
@@ -50,6 +55,9 @@
 }
 
 /* 短语录 */
+.saying{
+  padding-top: 50rpx;
+}
 .saying view span{
   position: absolute;
   width: 0;
@@ -79,22 +87,11 @@
   display: flex;
   flex-direction: column;
 }
-.private-bar{ /* 该页面私有的头部导航条（区别于自定义公共组件navbar）*/
-  height: 200rpx;
-  border-bottom: 1px solid #ddd;
-  position: relative;
-}
-.private-bar image{
-  width:30px;
-  height:30px;
-  position:absolute;
-  left:15px;
-  bottom:5px;
-}
+
 .body{
   padding: 40rpx 40rpx 10rpx;
+  font-family: myff;
 }
-
 /* .body里的各部分↓ */
 .date{
   color: #A8A8A8;

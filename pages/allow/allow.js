@@ -1,8 +1,6 @@
 // pages/allow/allow.js
-
 import getToken from '../../utils/getToken.js'
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -10,26 +8,36 @@ Page({
     goto: '',
   },
   allow(e){
-    console.log(e)
+    // console.log(e)
     if (e.detail.userInfo){//允许了
-      wx.redirectTo({
-        url: this.data.goto,
-      })
+      getApp().globalData.firstStatus = true;//首次授权需要查询文章收藏状态
+      getApp().globalData.userAllow = true;
+      
+      //解构 昵称 头像
+      let { nickName, avatarUrl } = e.detail.userInfo;
+      getToken(tk => {//获取token的全局公共方法
+        console.log(tk)
+        if (this.data.goto) {
+          wx.redirectTo({
+            url: this.data.goto,//去 '我的'或者'下一项'
+          })
+        } else {
+          wx.navigateBack({
+            delta: 1,//返回上一页（点收藏触发的授权）
+          })
+        };
+      }, nickName, avatarUrl)
     };
-    //解构 昵称 头像
-    let { nickName, avatarUrl } = e.detail.userInfo;
-    console.log(nickName)
-    getToken(tk => {//获取token的全局公共方法
-      console.log(tk)
-    }, nickName, avatarUrl)
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.setData({
-      goto: options.url,
-    })
+    if (options.url){
+      this.setData({
+        goto: options.url,
+      })
+    }
   },
 
   /**
@@ -78,6 +86,6 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    return getApp().globalData.shareInfo
   }
 })

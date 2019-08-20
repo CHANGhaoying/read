@@ -1,12 +1,12 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/study/study",
-    "pages/allow/allow",
+    "pages/ranking/ranking",
+    "pages/clock/clock",
     "pages/mine/record/record",
     "pages/mine/mine",
-    "pages/ranking/ranking",
-    "pages/home/home",
+    "pages/study/study",
+    "pages/allow/allow",
     "pages/mine/h5/h5",
     "pages/logs/logs"
   ],

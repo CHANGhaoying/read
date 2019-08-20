@@ -1,17 +1,19 @@
 //index.js
+const { globalData } = getApp()
 import { HTTP } from '../../utils/http.js'
 const http = new HTTP();
+import getToken from '../../utils/getToken.js'
 let { bottom } = getApp().globalData.menuBtn;//胶囊按钮的底部
 const music = wx.getBackgroundAudioManager();//背景音频
 let firstPlay = true;
 Page({
   data: {
-    userAllow: false,//用户是否授权登录
-
-    privateBarH: bottom + 8,//该页面私有的头部导航条（区别于自定义公共组件navbar）
+    privateBarH: bottom,//该页面私有的头部导航条（区别于自定义公共组件navbar）
+    userAllow: globalData.userAllow,//是否登录
+    navbarFlag: 1, //navbar显示返回箭头还是头像
 
     helloStr: '',// 早上/上午...
-    whoShow: 3,//封面 语录页 文章页 三者谁显示切换
+    whoShow: 1,//封面 语录页 文章页 三者谁显示切换
     sayingCode:0,//四段动画语录依次显示
     sayingAnimat:{},//语录动画效果
     sendWord:'',//封面寄语
@@ -21,14 +23,17 @@ Page({
     pushDate:'',//文章日期
     info:{},//今日文章页面信息
     firstWord: '', //文章类型首字母（大写）
-    articleType: '',//文章类型（首字母大写）
-    
+    articleType: '',//文章类型（不含首字母）
+    articleID: -1,//文章id
+    findWord:{},//点击带下划线单词的详情信息
+
     playflag: true,//播放 暂停音频
     duration: '00:00',//音频总长
     currentTime: '00:00',//当前播放时间
     seconds: 0,//音频总长秒数
-    ratio: 0.5,//rpx与px的转换比例
-    sliderW: 0,//进度条动态长度（初始值22rpx）
+    ratio: globalData.ratio,//rpx与px的转换比例
+
+    sliderW: 22 * globalData.systemInfo.screenWidth / 750, 
     sliderW_record: 0,//每次操作前的进度条长度记录
     startX: NaN,//进度条圆点的初始按压位置
     sliderMaxWidth:0,//进度条总长
@@ -36,12 +41,7 @@ Page({
     nextFlag: 1,//下一项图片切换
     collectFlag: 1,//收藏图片切换
     translateFlag: 1,//翻译图片切换
-
     coverFlag: true,//搜索单词遮罩显示 隐藏
-    // translate: true,//译文隐藏 显示
-    // canIUse: wx.canIUse('button.open-type.getUserInfo'),
-
-    
   },
   open(){//开启今日阅读
     this.setData({
@@ -51,7 +51,7 @@ Page({
     //语录页显示，动画开始
     this.fade_in_out = function(flag, time) {//淡入淡出动画封装
       let animation = wx.createAnimation({
-        duration: 1300,
+        duration: 900,
         timingFunction: 'ease',
       });
       animation.opacity(flag).step();
@@ -72,7 +72,7 @@ Page({
         sayingCode: n,
       })
       this.fade_in_out(1)//淡入
-    }, 1000);
+    }, 900);
     setTimeout(()=>{
       this.fade_in_out(0),//淡出
       setTimeout(()=>{
@@ -80,10 +80,10 @@ Page({
           whoShow:3,//显示文章页面
         });
         this.getArticleInfo()
-      },1300)
-    },5500)
+      },800)
+    },4500)
   },
-  getArticleInfo(){//获取文章信息
+  getArticleInfo(id){//获取文章信息
     let query = wx.createSelectorQuery();
     query.select('.slider').boundingClientRect(rect => {
       this.setData({
@@ -93,7 +93,7 @@ Page({
     http.request({
       url: '/article/info',//文章接口
       data: {
-        id: 21,
+        id: id || 25,
       },
       success: res => {
         console.log(res.data)
@@ -102,10 +102,12 @@ Page({
         let minute = parseInt(res.data.audio_time / 60), second = parseInt(res.data.audio_time % 60);
         this.setData({
           info: res.data,
-          firstWord: type[0].toUpperCase(),
-          articleType: type[0].toUpperCase() + type.slice(1, type.length),
+          firstWord: type ? type[0].toUpperCase() : '',//文章类型首字母
+          articleType: type ? type.slice(1, type.length) : '',//文章类型(不含首字母)
+          articleID: res.data.id,//文章id
           duration: (minute < 10 ? "0" + minute : minute) + ":" + (second < 10 ? "0" + second : second),
-        })
+        });
+        if (globalData.userAllow) this.collectStatus(res.data.id)//如果登录过就查询文章收藏状态
       }
     })
   },
@@ -134,7 +136,7 @@ Page({
     })
   },
   toMine(){//去 我的个人中心
-    if(this.data.userAllow){
+    if (globalData.userAllow){
       wx.navigateTo({
         url: '../mine/mine',
       })
@@ -143,25 +145,71 @@ Page({
         url: '../allow/allow?url=../mine/mine',
       })
     }
-   
   },
-  collect(e){//收藏
-    this.setData({
-      collectFlag: this.data.collectFlag == 1 ? 2 : 1,
+  collectStatus(id) {//查询文章的收藏状态
+    getToken(tk => {
+      http.request({
+        url: '/collect/' + id + '/status',
+        token: tk,
+        success: res => {
+          // console.log(res.data)
+          this.setData({
+            collectFlag: res.data.status ? 2 : 1,
+          })
+        }
+      })
     })
   },
+  collect(e) {//收藏
+    let { collectFlag, articleID } = this.data;
+    if (articleID == -1) return;//文章没请求成功
+    if (globalData.userAllow) {//已授权
+      let url = collectFlag == 1 ? 'add' : 'cancel';
+      getToken(tk=>{
+        http.request({
+          url: '/collect/' + url,//收藏或取消收藏
+          method: 'POST',
+          token: tk,
+          data:{
+            id: articleID,
+          },
+          success: res =>{
+            console.log(res)
+            this.setData({
+              collectFlag: collectFlag == 1 ? 2 : 1,
+            })
+          }
+        })
+      })
+    }else{
+      wx.navigateTo({
+        url: '../allow/allow',
+      })
+    }
+  },
   translate() {//点击翻译
+    if (this.data.articleID == -1) return;//文章没请求成功
     this.setData({
       translateFlag: this.data.translateFlag == 1 ? 2 : 1,
     })
   },
-  toStudy() {//去练习
+  toStudy() {//去练习（下一项）
+    if (this.data.articleID == -1) return;//文章没请求成功
     this.setData({
       nextFlag:2,
     });
-    if (this.data.userAllow) {
+    let torage_id = wx.getStorageSync('id');
+    if (this.data.articleID == torage_id){
+      wx.showToast({
+        title: '今日已打卡',
+        icon: 'none',
+        duration: 1500
+      })
+      return
+    }
+    if (globalData.userAllow) {
       wx.navigateTo({
-        url: '../study/study',
+        url: '../study/study?id=' + this.data.articleID + '&flag=' + this.data.navbarFlag,
       })
     } else {
       wx.navigateTo({
@@ -266,12 +314,23 @@ Page({
 
   },
   findWord(e){//点击单词
-    if (e.currentTarget.dataset.code){
+    let { code, word } = e.currentTarget.dataset
+    let {words} = this.data.info
+    if (code){
+      let item = words.filter(item=>{
+        if (word == item.english_word) return item
+      })
       this.setData({
         coverFlag: false,
+        findWord: item[0],
       })
     }
-    
+  },
+  playWord(e){//播放单词发音
+    console.log(e.target.dataset.src)
+    let audio = wx.createInnerAudioContext();
+    audio.autoplay = true;
+    audio.src = e.target.dataset.src;
   },
   close(){//关闭遮罩
     this.setData({
@@ -280,26 +339,22 @@ Page({
   },
   none() { return },//禁止搜索单词遮罩冒泡
   onLoad: function (options) {
-    if(options.flag){//来自学习记录 文章 或 收藏的文章
-      this.setData({
-        whoShow: 3,
-      })
-      // this.getArticleInfo()
-    }
-    this.getArticleInfo()
-
-    
-    //获取设备信息
-    wx.getSystemInfo({
-      success: res => {
-        this.setData({
-          //比例
-          ratio: res.screenWidth / 750,
-          sliderW: 22 * res.screenWidth / 750,
-        })
+    wx.loadFontFace({//设置网络字体
+      family: 'myff',
+      source: 'url("https://apiwx.yanxian.org/static/font/f1.otf")',
+      complete: res => {
+        // console.log(res)
       }
     })
 
+    if(options.id){//来自学习记录中往期文章 或 收藏的文章
+      this.setData({
+        whoShow: 3,
+        navbarFlag: 2,//显示返回箭头
+      })
+      this.getArticleInfo(options.id)
+    }
+    
     //判断时间段
     let hour = new Date().getHours(),str='';
     if(hour >= 0 && hour < 5 || hour >= 19 && hour <= 23){
@@ -316,126 +371,40 @@ Page({
     this.setData({
       helloStr: str,
     });
-
-    http.request({
-      url: '/nav',//首页寄语 气泡语录接口
-      method: 'GET',
-      data:{
-
-      },
-      success: res=>{
-        console.log(res)
-        this.setData({
-          sendWord: res.data.motivation,
-          punchDays: res.data.punch_days || 0,
-          sayings: res.data.quotations,
-        })
-      }
-    });
-    
-    
-
+    getToken(tk=>{
+      let str = tk ? 'success' : '';
+      http.request({
+        url: '/nav?sign=' + str,//首页寄语 气泡语录接口
+        token: tk || '',
+        success: res=>{
+          // console.log(res)
+          this.setData({
+            sendWord: res.data.motivation,
+            punchDays: res.data.punch_days || 0,
+            sayings: res.data.quotations,
+          })
+        }
+      });
+    })
   },
   onReady(){
-    // let n = 0
-    // playInterval = setInterval(()=>{
-    //   console.log(777)
-    //   n++
-    //   if(n>=100){
-    //     clearInterval(playInterval)
-    //   }
-      
-    // },100)
+   
   },
+  
   onShow(){
     this.setData({
       nextFlag: 1,
     });
-    wx.getSetting({
-      success: res => {
-        if (res.authSetting['scope.userInfo']) {//用户授过权，登录过
-          this.setData({
-            userAllow: true,
-          })
-        }
-      }
-    });
-    // let menuBtn = wx.getMenuButtonBoundingClientRect();
-    // // console.log(menuBtn,menuBtn.bottom -menuBtn.height/2)
-    // this.setData({
-    //   navbarH: menuBtn.bottom + 8,
-    // });
+    if (globalData.firstStatus) {//初次授权 查询文章是否收藏
+      this.collectStatus(this.data.articleID)
+      globalData.firstStatus = false;//关闭 以后都不需要在onShow函数中查询
+    }
 
-    
-
-  },
-  // aa(){
-  //   let am = wx.createAnimation({
-  //     duration: 300,
-  //     timingFunction: 'ease-out',
-  //   });
-  //   am.opacity(1).scale(1, 1).translate(40, 0).step();
-  //   this.setData({
-  //     mm: am,
-  //   })
-  // },
-  // go(){
-  //   wx.navigateTo({
-  //     url: '../home/home',
-  //     success: function(res) {},
-  //     fail: function(res) {},
-  //     complete: function(res) {},
-  //   })
-  // },
-  //事件处理函数
-  // bindViewTap: function() {
-  //   wx.navigateTo({
-  //     url: '../logs/logs'
-  //   })
-  // },
-  // getUserInfo: function(e) {
-  //   console.log(e)
-  //   app.globalData.userInfo = e.detail.userInfo
-  //   this.setData({
-  //     userInfo: e.detail.userInfo,
-  //     hasUserInfo: true
-  //   })
-  // }
+  },  
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+    return getApp().globalData.shareInfo
+  }
 })
-
-
-// wx.loadFontFace({
-    //   family: 'myff',
-    //   source: 'url("https://sungd.github.io/Pacifico.ttf")',
-    //   success: res => {
-    //     // console.log(res)
-    //   }
-    // })
-
-    // if (app.globalData.userInfo) {
-    //   this.setData({
-    //     userInfo: app.globalData.userInfo,
-    //     hasUserInfo: true
-    //   })
-    // } else if (this.data.canIUse){
-    //   // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-    //   // 所以此处加入 callback 以防止这种情况
-    //   app.userInfoReadyCallback = res => {
-    //     this.setData({
-    //       userInfo: res.userInfo,
-    //       hasUserInfo: true
-    //     })
-    //   }
-    // } else {
-    //   // 在没有 open-type=getUserInfo 版本的兼容处理
-    //   wx.getUserInfo({
-    //     success: res => {
-    //       console.log(res)
-    //       app.globalData.userInfo = res.userInfo
-    //       this.setData({
-    //         userInfo: res.userInfo,
-    //         hasUserInfo: true
-    //       })
-    //     }
-    //   })
-    // }

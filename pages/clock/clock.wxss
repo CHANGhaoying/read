@@ -1,0 +1,58 @@
+/* pages/clock/clock.wxss */
+.banner{
+  text-align: center;
+  padding-top: 40rpx;
+  position: relative;
+}
+.banner image{
+  width: 700rpx;
+  height: 658rpx;
+}
+.banner text{
+  position: absolute;
+  bottom: 76rpx;
+  right: 150rpx;
+  font-size: 60rpx;
+	color: #ffffff;
+}
+.user{
+  display: flex;
+  align-items: center;
+  padding: 40rpx 0 0 50rpx;
+  font-size: 30rpx;
+	color: #191919;
+}
+.user>view:first-child{
+  width: 76rpx;
+	height: 76rpx;
+  overflow: hidden;
+  border-radius: 50%;
+  margin-right: 25rpx;
+}
+.cheer{
+  font-size: 26rpx;
+	color: #4f4f4f;
+  padding: 0 0 100rpx 155rpx;
+}
+.btn-box{
+  text-align: center;
+}
+button{
+  width: 300rpx;
+	height: 74rpx;
+  line-height: 74rpx;
+	background-color: #44be73;
+	border-radius: 37rpx;
+  font-size: 32rpx;
+	color: #ffffff;
+  display: inline-block;
+}
+button:last-child{
+  background-color: #ff7070;
+  margin-left:30rpx; 
+}
+canvas{
+  position: fixed;
+  top:0;
+  left:100%;
+}

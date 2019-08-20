@@ -1,7 +1,8 @@
 <!--components/navbar/navbar.wxml-->
 <view class="top" style="height:{{topH}}px">
   <view>
-    <span class='icon-fanhui iconfont' bindtap='back' wx:if='{{!flag}}'></span>
+    <image src='/static/img/head.png' wx:if='{{flag == 1}}' bindtap='toMine'></image>
+    <span class='icon-fanhui iconfont' bindtap='back' wx:if='{{!flag || flag == 2}}'></span>
     <text>{{text}}</text>
   </view>
 </view>

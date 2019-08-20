@@ -12,29 +12,7 @@ App({
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
       }
     })
-    // 获取用户信息
-    wx.getSetting({
-      success: res => {
-        // console.log(res)
-        // console.log(this.userInfoReadyCallback)
-        // if ("res.authSetting['scope.userInfo']") {
-        //   // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
-        //   wx.getUserInfo({
-        //     success: res => {
-        //       console.log(res)
-        //       // 可以将 res 发送给后台解码出 unionId
-        //       this.globalData.userInfo = res.userInfo
-        //       // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-        //       // 所以此处加入 callback 以防止这种情况
-        //       if (this.userInfoReadyCallback) {
-        //         this.userInfoReadyCallback(res)
-        //       }
-        //     }
-        //   })
-        // }
-      }
-    });
-  
+    
     //加入 新版本检测更新 提示用户
     if (wx.canIUse('getUpdateManager')) {//版本是否支持
       const updateManager = wx.getUpdateManager()
@@ -70,11 +48,28 @@ App({
       obeyMuteSwitch: false,// 是否遵循系统静音开关，默认为 true。当此参数为 false 时，即使用户打开了静音开关，也能继续发出声音。
       //全局生效
     })
+    //获取设备信息
+    wx.getSystemInfo({
+      success: res => {
+        // console.log(res)
+        this.globalData.systemInfo = res;
+        this.globalData.ratio = res.screenWidth / 750;
+      }
+    });
+    
   },
   
   globalData: {
-    userInfo: null,
-    menuBtn: wx.getMenuButtonBoundingClientRect(),
+    userAllow: wx.getStorageSync('tk_info') ? true : false,//是否登录
+    menuBtn: wx.getMenuButtonBoundingClientRect(),//胶囊按钮
+    firstStatus: false,//首次授权需要查询文章收藏状态
+    systemInfo:null,//设备信息
+    ratio: 0.5,//设备屏幕比例
+    cnj:null,
+    shareInfo: {//用户分享的页面信息
+      title: '英语阅读小程序',
+      path: '/pages/index/index',
+    },
   },
   
 })

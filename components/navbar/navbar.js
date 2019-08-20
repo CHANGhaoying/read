@@ -5,7 +5,7 @@ Component({
    */
   properties: {
     text: String,
-    flag: Boolean,
+    flag: String,
   },
 
   /**
@@ -21,6 +21,9 @@ Component({
   methods: {
     back(){
       wx.navigateBack({delta:1})
+    },
+    toMine(e){
+      this.triggerEvent('toMine')
     }
   }
 })

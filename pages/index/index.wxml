@@ -1,14 +1,9 @@
-
-
-<!-- <view 
-style="width:100rpx;height:100rpx;border:1px solid red;border-radius:50%;line-height:100rpx;text-align:center;transform:scale(0.6,0.6) translate(0,100px);opacity:0;" 
-animation='{{mm}}' bindtap='go'>哈哈</view> -->
 <!-- 首页封面 -->
 <view class='first-cover' hidden="{{whoShow != 1}}">
-  <navbar text='研线MBA英语阅读' flag='true'/>
+  <navbar text='研线MBA英语阅读' flag='3'/>
   <view class="banner"><image src='/static/img/small_banner.png'></image></view>
   <view class='card'>
-    <view>{{sendWord}}</view>
+    <view style="font-family: myff;">{{sendWord}}</view>
     <view class='hello' wx:if='{{userAllow}}'>
       <open-data type="userNickName"></open-data>
       <text>，{{helloStr}}好\n你已经坚持打卡{{punchDays}}天啦，加油！</text>
@@ -34,9 +29,7 @@ animation='{{mm}}' bindtap='go'>哈哈</view> -->
 </view>
 <!-- 首页文章-->
 <view class="index" hidden='{{whoShow != 3}}'>
-  <view class="private-bar" style="height:{{privateBarH}}px;"><!-- 该页面私有的头部导航条（区别于自定义公共组件navbar）-->
-    <image src='/static/img/head.png' bindtap='toMine'></image>
-  </view>
+  <navbar flag='{{navbarFlag}}' bindtoMine='toMine'/>
   <view class='body flex-1'>
     <view class="date">
         <text>{{pushDate}}</text>
@@ -45,9 +38,9 @@ animation='{{mm}}' bindtap='go'>哈哈</view> -->
       <text>{{info.title}}</text>
     </view>
     <view class="type">
-      <span>{{firstWord}}</span><text> {{articleType}}</text>
+      <span>{{firstWord}}</span><text>{{articleType}}</text>
     </view>
-    <view class="img">
+    <view class="img"><!-- info.img_url -->
       <image src="http://b3-q.mafengwo.net/s7/M00/38/F0/wKgB6lRi9waAYDRbAAWy4MYwmtg84.jpeg"></image>
     </view>
     <view class="audio">
@@ -76,15 +69,15 @@ animation='{{mm}}' bindtap='go'>哈哈</view> -->
               code = 1
             }
           }
-          return code  
+          return {code:code,word: ss}  
         }
         module.exports = {toArr:toArr,find:find}
       </wxs>
       <block wx:for='{{info.content}}' wx:key='{{index}}'>
         <view class="english">
           <span bindtap='findWord' wx:for='{{m1.toArr(item.text)}}' wx:key='{{index}}'
-           data-code='{{m1.find(item,info.words)}}'>
-            {{item}}<icon wx:if='{{m1.find(item,info.words)}}'></icon>
+           data-code='{{m1.find(item,info.words).code}}' data-word='{{m1.find(item,info.words).word}}'>
+            {{item}}<icon wx:if='{{m1.find(item,info.words).code}}'></icon>
           </span>
         </view>
         <view class="chinese" hidden='{{translateFlag == 1}}'>{{item.translation}}</view>
@@ -113,18 +106,15 @@ animation='{{mm}}' bindtap='go'>哈哈</view> -->
       <span></span><span></span>
     </view> 
     <icon class='iconfont icon-guanbi' catchtap='close'></icon>
-    <!-- <view hidden class='msg'>暂未收录该单词</view>  -->
     <view class='sash-window-body'>
       <view>
-        <text class='word'>english_word</text>
+        <text class='word'>{{findWord.english_word}}</text>
         <view class='soundmark'>
-          <text>[phonetic]</text><!--音标-->
-          <i class='iconfont icon-shengyin' catchtap='play' data-src='{{wordData.us_audio}}'></i>
+          <text>{{findWord.us_phonetic}}</text><!--音标-->
+          <i class='iconfont icon-shengyin' catchtap='playWord' data-src='{{findWord.us_audio}}'></i>
         </view>
         <view class='meaning'>
-          <p>vt. 推测；猜测，猜中；假定，认为</p>
-          <p>vt. 推测；猜测，猜中；假定，认为</p>
-          <p>vt. 推测；猜测，猜中；假定，认为</p>
+          <p wx:for='{{findWord.chinese_word}}' wx:key='{{index}}'>{{item}}</p>
         </view>
       </view>
     </view>

@@ -9,19 +9,14 @@ let getToken = function (callback, name, url) {
         let { code } = res
         http.request({
           url: '/token/user',
+          method: 'POST',
           data: {
             nick_name: name,
             avatar_url: url,
             code: code,
           },
           success: res => {
-            wx.setStorage({//(异步)本地缓存新的token时间戳
-              key: 'tk_info',
-              data: {
-                tk: res.data.token,
-                tk_timestamp: new Date().getTime(),
-              },
-            });
+            wx.setStorageSync('tk_info', {tk: res.data.token,tk_timestamp: new Date().getTime()})
             console.log(res.data)
             callback(res.data.token)//回调 
           },
@@ -43,7 +38,6 @@ let getToken = function (callback, name, url) {
   }else {//如果token不存在
     if (name && url) {//如果传递name,url值，即为初次授权触发
       log(name, url)//获取token
-
       wx.setStorage({//(异步)本地缓存 用户昵称和头像
         key: 'userData',
         data: { name: name, url: url },

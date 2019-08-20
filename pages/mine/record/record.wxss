@@ -1,10 +1,22 @@
 /* pages/mine/son/record/record.wxss */
+navbar{
+  position: fixed;
+  width: 100%;
+  background: #fff;
+  top: 0;
+  left: 0;
+  z-index: 5;
+}
 .nav{
   display: flex;
   justify-content: space-around;
   font-size: 30rpx;
   color: #9b9b9b;
   border-bottom: #e6e6e7 1rpx solid;
+  position: fixed;
+  width: 100%;
+  z-index: 5;
+  background: #fff;
 }
 .nav view{
   position: relative;
@@ -95,4 +107,9 @@
   position: absolute;
   right: 0;
   top:0;
+}
+/* 无数据 空白页 */
+.blank{
+  text-align: center;
+  padding-top: 300rpx;
 }

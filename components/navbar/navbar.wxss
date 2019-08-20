@@ -13,12 +13,21 @@
   font-size: 16px;
   color: #313131;
 }
+.top image{
+  width:30px;
+  height:30px;
+  position:absolute;
+  left:15px;
+  bottom:-3px;
+}
 .top view text{
-  margin-left: 20px;
+  margin-left: 15px;
 }
 .top view .iconfont{
+  display: inline-block;
   font-size: 18px;
   color: #313131;
   font-weight: bold;
+  width: 60rpx;
 }
 @import "../../static/ali/iconfont.wxss"

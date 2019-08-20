@@ -1,5 +1,9 @@
 /* pages/study/study.wxss */
-
+page{
+  position: relative;
+  display: flex;
+  flex-direction:column;
+}
 .first-cover .bg-img{
   text-align: center;
   padding-top: 40rpx;
@@ -9,7 +13,7 @@
   height: 647rpx;
 }
 .first-cover .talk{
-  padding: 48rpx 80rpx 100rpx;
+  padding: 48rpx 80rpx 80rpx;
 }
 .talk view{
   font-size: 50rpx;
@@ -31,14 +35,14 @@
 }
 /* 单词 词组 长难句 个数目录条（定位隐藏） */
 .catalog-wrap{
-  position: absolute;
+  position: fixed;
   width: 100%;
   box-sizing: border-box;
-  display: none;    
+  overflow: hidden;
 }
 .catalog{
   width: 669rpx;
-	height: 150rpx;
+  height: 0;
 	background: #f9fafc;
   margin:0 auto;
   display: flex;
@@ -52,6 +56,14 @@
   color: #191919;
   text-align: center;
   line-height: 36rpx;
+  position: relative;
+}
+.catalog>view image{
+  position: absolute;
+  width: 66rpx;
+  height: 66rpx;
+  bottom:30rpx;
+  right: -50rpx;
 }
 .catalog span{
   font-size: 48rpx;
@@ -119,10 +131,10 @@
 .clock{
   margin: 40rpx 0 75rpx;
 }
-.clock icon{
-  font-size: 50rpx;
-  display: inline-block;
-  vertical-align: top;
+.clock image{
+  width: 50rpx;
+  height: 50rpx;
+  vertical-align: top; 
 }
 .clock text{
   color: #474747;
@@ -131,12 +143,12 @@
 }
 .clock span{
   float:right;
-  margin-top:6rpx;
   background: #303030;
   width: 46rpx;
 	height: 43rpx;
+  line-height: 43rpx;
   color: #ffffff;
-  font-size: 32rpx;
+  font-size: 40rpx;
   text-align: center;
 }
 .btn-group{
@@ -154,6 +166,10 @@
   line-height: 63rpx;
   margin-bottom: 32rpx;
 }
+.btn-group .active{
+  background-color: #FE6868;
+  color: #fff;
+}
 /* 长难句 */
 .cnj{
 	font-size: 30rpx;
@@ -161,16 +177,17 @@
 	color: #474747;
   margin-top: 30rpx;
   padding: 0 50rpx;
+  word-wrap: break-word; 
 }
 .cnj-box .topic{
   padding:60rpx 50rpx 49rpx;
   display: flex;
   align-items: center;
 }
-.topic icon{
+.topic image{
   width: 37rpx;
 	height: 37rpx;
-	background-color: #ff7860;
+	/* background-color: #ff7860; */
 }
 .topic text{
   font-size: 33rpx;
@@ -206,20 +223,25 @@
   line-height: 32rpx;
   font-weight: bold;
   padding:5rpx;
+  display: none;
 }
 .yes{
   background-color: #d7ffe6;
 	border: solid 1rpx #28b65f;
 }
+.yes span{
+  display: block;
+}
 .no{
   background-color: #fde2df;
 	border: solid 1rpx #f86f60;
 }
-.no .iconfont{
+.no span{
   background: #f86f60;
   font-size:24rpx;
   padding-left: 7rpx;
   right: -19rpx;
+  display: block;
 }
 .look{
   font-size: 32rpx;
@@ -227,12 +249,10 @@
   text-align: center;
   margin-top:40rpx;
 }
-.look text{
-  display: inline-block;
-  transform:rotate(90deg);
-  font-size: 40rpx;
-  margin-left:20rpx;
-  padding-left: 10rpx;
+.look image{
+  width: 22rpx;
+  height: 18rpx;
+  padding-left: 20rpx;
 }
 
 /* 解析 */
@@ -318,4 +338,33 @@
   font-size: 36rpx;
 	color: #ffffff;
   margin-top: 36rpx;
+}
+/* 遮罩 */
+.cover{
+  width:100%;
+  height: 100%;
+  position: absolute;
+  top:0;
+  left:0;
+  background: rgba(0,0,0,0.5);
+  z-index: 10;
+}
+.cover>view{
+  width: 584rpx;
+	height: 289rpx;
+	background-color: #ffffff;
+	border-radius: 16rpx;
+  margin: 450rpx auto 0;
+  font-size: 28rpx;
+	line-height: 52rpx;
+	color: #242424;
+  text-align: center;
+  padding-top:65rpx; 
+}
+.cover button{
+  background: #fff;
+  color:#17bb56;
+  font-size: 26rpx;
+  border-top: 1rpx solid #e2e1e1;
+  margin-top: 40rpx;
 }

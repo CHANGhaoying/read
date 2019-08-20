@@ -7,7 +7,7 @@
     </view>
     <view>
       <view class="name"><open-data type='userNickName'></open-data></view>
-      <view><text>坚持打卡第4天</text></view>
+      <view><text>坚持打卡第{{punch_days}}天</text></view>
     </view>
   </view>
   <view class="mylist">

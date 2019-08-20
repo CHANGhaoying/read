@@ -1,4 +1,7 @@
 // pages/mine/mine.js
+import { HTTP } from '../../utils/http.js'
+const http = new HTTP();
+import getToken from '../../utils/getToken.js'
 Page({
   /**
    * 页面的初始数据
@@ -8,9 +11,10 @@ Page({
       { url: 'xxjl.png', txt: '学习记录' },
       { url: 'scwz.png', txt: '我收藏的文章' },
       { url: 'wqwz.png', txt: '往期文章' },
-      { url: 'about.png', txt: '关于我们' },
+      // { url: 'about.png', txt: '关于我们' },
       { url: 'yxkt.png', txt: '研线课堂' }
     ],
+    punch_days: 0,
   },
   goto(e){
     let { index } = e.currentTarget.dataset, url = '';
@@ -24,9 +28,9 @@ Page({
       case 2:
         url = 'record/record?flag=2';//往期文章
         break;
-      case 3:
-        url = 'h5/h5?flag=0';//关于我们
-        break;
+      // case 3:
+      //   url = 'h5/h5?flag=0';//关于我们
+      //   break;
       default:
         url = 'h5/h5?flag=1';//研线课堂
     };
@@ -38,7 +42,17 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    getToken(tk=>{
+      http.request({
+        url:'/personal/punch_days',
+        token: tk,
+        success: res=>{
+         this.setData({
+           punch_days: res.data.punch_days,
+         })
+        }
+      })
+    })
   },
 
   /**
@@ -87,6 +101,6 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    return getApp().globalData.shareInfo
   }
 })
